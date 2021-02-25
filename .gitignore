@@ -1,2 +1,4 @@
 /.ccls-cache/
 /.tasks
+build/
+/compile_commands.json

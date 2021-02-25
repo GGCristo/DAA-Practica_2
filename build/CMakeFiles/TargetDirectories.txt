@@ -1,3 +1,0 @@
-/home/cristo/Desktop/DAA/practicas/DAA-Practica_2/build/CMakeFiles/rebuild_cache.dir
-/home/cristo/Desktop/DAA/practicas/DAA-Practica_2/build/CMakeFiles/edit_cache.dir
-/home/cristo/Desktop/DAA/practicas/DAA-Practica_2/build/CMakeFiles/main.dir
