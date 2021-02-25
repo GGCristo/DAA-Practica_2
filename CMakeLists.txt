@@ -5,6 +5,7 @@ project(RAM)
 set(SOURCES
   src/programa.cpp
   src/instruccion.cpp
+  src/set_etiquetas.cpp
 )
 
 set(CMAKE_CXX_FLAGS "-O2")

@@ -5,6 +5,7 @@
 
 #include "../include/instruccion.hpp"
 #include "../include/programa.hpp"
+#include "../include/set_etiquetas.hpp"
 
 void compilar(std::fstream&);
 
@@ -28,6 +29,7 @@ void compilar(std::fstream& f_instrucciones)
 {
   // TODO ¿Debería ser Singleton la clase "Programa"?
   Programa programa;
+  SetEtiquetas set_etiquetas;
   std::string linea;
   std::string palabra1;
   std::string palabra2;
@@ -41,11 +43,13 @@ void compilar(std::fstream& f_instrucciones)
       {
         if (palabra1[palabra1.size() - 1] == ':')
         {
-          std::cout << "Es una etiqueta: " << palabra1 << "que apunta a: " << programa.get_sz() << '\n';
+          palabra1.erase(palabra1.end() - 1);
+          std::cout << "Es una etiqueta: " << palabra1 << " que apunta a: " << programa.get_sz() << '\n';
           linea_stream >> palabra2;
           linea_stream >> palabra3;
           std::cout << "Esta es la operacion: " << palabra2 << '\n';
           std::cout << "Y esta es el valor: " << palabra3 << '\n';
+          set_etiquetas.insertar(palabra1, programa.get_sz());
           programa.insertar_instruccion(Instruccion(palabra2, palabra3));
         }
         else
