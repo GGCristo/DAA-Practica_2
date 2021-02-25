@@ -6,6 +6,8 @@ set(SOURCES
   src/programa.cpp
   src/instruccion.cpp
   src/set_etiquetas.cpp
+  src/cinta_salida.cpp
+  src/cinta_entrada.cpp
 )
 
 set(CMAKE_CXX_FLAGS "-O2")

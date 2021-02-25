@@ -5,36 +5,65 @@
 
 #include "../include/instruccion.hpp"
 #include "../include/programa.hpp"
+#include "../include/cinta_salida.hpp"
+#include "../include/cinta_entrada.hpp"
 #include "../include/set_etiquetas.hpp"
 
-void compilar(std::fstream&);
+void cargarPrograma(char*);
+void leerCinta(char*);
 
-int main()
+int main(int argc, char *argv[])
 {
-  std::fstream f_instrucciones;
-  f_instrucciones.open("test/test1.ram", std::ios::in);
-  if (!f_instrucciones)
+  try
   {
-    std::cout << "Fichero no se ha creado/abierto correctamente\n";
-    return -1;
+    leerCinta(argv[2]);
+    cargarPrograma(argv[1]);
   }
-  std::cout << "Fichero abierto correctamente\n";
-  compilar(f_instrucciones);
-
-  f_instrucciones.close();
+  catch(const std::exception& e)
+  {
+    std::cout << e.what();
+  }
+  catch(const char* message)
+  {
+    std::cout << message;
+  }
   return 0;
 }
 
-void compilar(std::fstream& f_instrucciones)
+void leerCinta(char* fichero)
 {
+  std::fstream f_cinta_input;
+  f_cinta_input.open(fichero, std::ios::in);
+  if (!f_cinta_input)
+  {
+    throw "No se ha podido leer la cinta\n";
+  }
+  std::string palabra;
+  std::vector<int> cinta_aux;
+  while(f_cinta_input >> palabra)
+  {
+    std::stringstream to_int(palabra);
+    int entero = 0;
+    to_int >> entero;
+    cinta_aux.push_back(entero);
+  }
+  CintaEntrada::get_instance().set_cinta_entrada(cinta_aux);
+  f_cinta_input.close();
+}
+
+void cargarPrograma(char* fichero)
+{
+  std::fstream f_programaRAM;
+  f_programaRAM.open(fichero, std::ios::in);
+  if (!f_programaRAM)
+  {
+    throw "No se ha podido cargar el programa";
+  }
   // TODO ¿Debería ser Singleton la clase "Programa"?
   Programa programa;
   SetEtiquetas set_etiquetas;
-  std::string linea;
-  std::string palabra1;
-  std::string palabra2;
-  std::string palabra3;
-  while(getline(f_instrucciones, linea))
+  std::string linea, palabra1, palabra2, palabra3;
+  while(getline(f_programaRAM, linea))
   {
     std::stringstream linea_stream(linea);
     if (linea[0] != '#')
@@ -44,24 +73,18 @@ void compilar(std::fstream& f_instrucciones)
         if (palabra1[palabra1.size() - 1] == ':')
         {
           palabra1.erase(palabra1.end() - 1);
-          std::cout << "Es una etiqueta: " << palabra1 << " que apunta a: " << programa.get_sz() << '\n';
           linea_stream >> palabra2;
           linea_stream >> palabra3;
-          std::cout << "Esta es la operacion: " << palabra2 << '\n';
-          std::cout << "Y esta es el valor: " << palabra3 << '\n';
           set_etiquetas.insertar(palabra1, programa.get_sz());
           programa.insertar_instruccion(Instruccion(palabra2, palabra3));
         }
         else
         {
-          std::cout << "No es una etiqueta\n";
           linea_stream >> palabra2;
-          std::cout << "Esta es la operacion: " << palabra1 << '\n';
-          std::cout << "Y esta es el valor: " << palabra2 << '\n';
           programa.insertar_instruccion(Instruccion(palabra1, palabra2));
         }
       }
-      std::cout << "\n\n";
     }
   }
+  f_programaRAM.close();
 }
