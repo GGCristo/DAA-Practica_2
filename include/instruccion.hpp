@@ -3,7 +3,7 @@
 class Instruccion
 {
   public:
-    Instruccion(std::string, std::string);
+    Instruccion(const std::string&, const std::string&);
   private:
     std::string operacion_;
     std::string operando_;
