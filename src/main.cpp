@@ -72,17 +72,19 @@ void volcarCinta(char* fichero)
 
 void ejecutar(const Programa& programa, char* debug)
 {
-  if (std::stoi(debug))
+  bool b_debug = std::stoi(debug);
+
+  if (b_debug)
   {
     do
     {
       if (!menu()) break;
     }
-    while (programa.ejecutar());
+    while (programa.ejecutar(b_debug));
   }
   else
   {
-    while (programa.ejecutar()) { /* No necesito el cuerpo */ };
+    while (programa.ejecutar(b_debug)) { /* No necesito el cuerpo */ };
   }
 }
 
@@ -91,7 +93,7 @@ bool menu()
   char opcion;
   do
   {
-    std::cout << "r: ver los registros\nt: traza\ne: ejecutar\ns: desensamblador\ni: ver cinta entrada\no:ver cinta salida\nh: ayuda\nx: salir\n";
+    std::cout << "r: ver los registros\nt: traza\ne: ejecutar\ns: desensamblador\ni: ver cinta entrada\no: ver cinta salida\nh: ayuda\nx: salir\n";
     std::cin >> opcion;
     switch(opcion)
     {

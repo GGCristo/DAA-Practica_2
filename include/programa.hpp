@@ -14,7 +14,7 @@ class Programa
 {
   public:
     explicit Programa(char *);
-    int ejecutar() const;
+    int ejecutar(bool debug = 0) const;
     void insertar_instruccion(Instruccion);
     const size_t get_sz();
     const size_t get_sz() const;
