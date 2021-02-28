@@ -2,3 +2,6 @@
 /.tasks
 build/
 /compile_commands.json
+bin/
+Debug/
+/.vimspector.json

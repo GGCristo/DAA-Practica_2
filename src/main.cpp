@@ -5,19 +5,25 @@
 
 #include "../include/instruccion.hpp"
 #include "../include/programa.hpp"
-#include "../include/cinta_salida.hpp"
-#include "../include/cinta_entrada.hpp"
+#include "../include/cinta_salida.hpp" // Singleton
+#include "../include/cinta_entrada.hpp" // Singleton
 #include "../include/set_etiquetas.hpp"
+#include "../include/contador_de_programa.hpp"
 
-void cargarPrograma(char*);
-void leerCinta(char*);
+void cargarCinta(char*);
+void ejecutar(const Programa&, char*);
+void volcarCinta(char*);
+bool menu();
 
+// TODO controlar número de parametros y los propios parametros
 int main(int argc, char *argv[])
 {
   try
   {
-    leerCinta(argv[2]);
-    cargarPrograma(argv[1]);
+    cargarCinta(argv[2]);
+    Programa programa(argv[1]); // Cargar Programa
+    ejecutar(programa, argv[4]);
+    volcarCinta(argv[3]);
   }
   catch(const std::exception& e)
   {
@@ -30,7 +36,7 @@ int main(int argc, char *argv[])
   return 0;
 }
 
-void leerCinta(char* fichero)
+void cargarCinta(char* fichero)
 {
   std::fstream f_cinta_input;
   f_cinta_input.open(fichero, std::ios::in);
@@ -42,49 +48,79 @@ void leerCinta(char* fichero)
   std::vector<int> cinta_aux;
   while(f_cinta_input >> palabra)
   {
-    std::stringstream to_int(palabra);
-    int entero = 0;
-    to_int >> entero;
-    cinta_aux.push_back(entero);
+    cinta_aux.push_back(std::stoi(palabra));
   }
   CintaEntrada::get_instance().set_cinta_entrada(cinta_aux);
   f_cinta_input.close();
 }
 
-void cargarPrograma(char* fichero)
+void volcarCinta(char* fichero)
 {
-  std::fstream f_programaRAM;
-  f_programaRAM.open(fichero, std::ios::in);
-  if (!f_programaRAM)
+  std::fstream f_cinta_output;
+  f_cinta_output.open(fichero, std::ios::out);
+  if(!f_cinta_output)
   {
-    throw "No se ha podido cargar el programa";
+    throw "No se ha podido escribir en la cinta de salida\n";
   }
-  // TODO ¿Debería ser Singleton la clase "Programa"?
-  Programa programa;
-  SetEtiquetas set_etiquetas;
-  std::string linea, palabra1, palabra2, palabra3;
-  while(getline(f_programaRAM, linea))
+  for (size_t i = 0; i < CintaSalida::get_instance().get_sz(); i++)
   {
-    std::stringstream linea_stream(linea);
-    if (linea[0] != '#')
+    f_cinta_output << CintaSalida::get_instance()[i] << ' ';
+  }
+  f_cinta_output.close();
+}
+
+void ejecutar(const Programa& programa, char* debug)
+{
+  if (std::stoi(debug))
+  {
+    do
     {
-      while(linea_stream >> palabra1)
-      {
-        if (palabra1[palabra1.size() - 1] == ':')
-        {
-          palabra1.erase(palabra1.end() - 1);
-          linea_stream >> palabra2;
-          linea_stream >> palabra3;
-          set_etiquetas.insertar(palabra1, programa.get_sz());
-          programa.insertar_instruccion(Instruccion(palabra2, palabra3));
-        }
-        else
-        {
-          linea_stream >> palabra2;
-          programa.insertar_instruccion(Instruccion(palabra1, palabra2));
-        }
-      }
+      if (!menu()) break;
     }
+    while (programa.ejecutar());
   }
-  f_programaRAM.close();
+  else
+  {
+    while (programa.ejecutar()) { /* No necesito el cuerpo */ };
+  }
+}
+
+bool menu()
+{
+  char opcion;
+  do
+  {
+    std::cout << "r: ver los registros\nt: traza\ne: ejecutar\ns: desensamblador\ni: ver cinta entrada\no:ver cinta salida\nh: ayuda\nx: salir\n";
+    std::cin >> opcion;
+    switch(opcion)
+    {
+      case 'e':
+        break;
+      case 'r':
+        for (size_t i = 0; i < Memoria::get_instance().get_sz(); i++)
+        {
+          std::cout << Memoria::get_instance()[i] << '\n';
+        }
+        break;
+      case 'i':
+        for (size_t i = 0; i < CintaEntrada::get_instance().get_sz(); i++)
+        {
+          std::cout << CintaEntrada::get_instance()[i] << '\n';
+        }
+        break;
+      case 'o':
+        for (size_t i = 0; i < CintaSalida::get_instance().get_sz(); i++)
+        {
+          std::cout << CintaSalida::get_instance()[i] << '\n';
+        }
+        break;
+      case 'x':
+        std::cout << "Cerrando programa\n";
+        break;
+      default:
+        std::cout << "Esa opción no esta contemplada\n";
+    }
+  } while (opcion != 'e' && opcion != 'x');
+  if (opcion == 'x') return false;
+  return true;
 }

@@ -7,9 +7,12 @@ class CintaSalida
     CintaSalida(const CintaSalida&) = delete;
     CintaSalida& operator = (const CintaSalida&) = delete;
     static CintaSalida& get_instance();
-    void write(int);
+    const int operator [] (int);
+    const size_t get_sz();
   private:
     CintaSalida();
     std::vector<int> cinta_salida_;
     int cabeza_ = 0;
+    void write(int);
+    friend class Programa;
 };

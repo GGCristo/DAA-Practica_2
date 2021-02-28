@@ -11,8 +11,19 @@ CintaEntrada& CintaEntrada::get_instance()
   return instance;
 }
 
+const int CintaEntrada::operator [] (int posicion)
+{
+  return cinta_entrada_[posicion];
+}
+
+const size_t CintaEntrada::get_sz()
+{
+  return cinta_entrada_.size();
+}
+
 int CintaEntrada::read()
 {
+  std::cout << "READ: " << cinta_entrada_[cabeza_] << " Cabeza: " << cabeza_ << '\n';
   return cinta_entrada_[cabeza_++];
 }
 
