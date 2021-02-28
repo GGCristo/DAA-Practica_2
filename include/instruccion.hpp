@@ -2,12 +2,6 @@
 #include <iostream>
 #include <string>
 
-#include "memoria.hpp"
-#include "cinta_salida.hpp"
-#include "cinta_entrada.hpp"
-#include "set_etiquetas.hpp"
-#include "contador_de_programa.hpp"
-
 class Instruccion
 {
   public:

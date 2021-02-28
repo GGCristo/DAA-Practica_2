@@ -3,23 +3,24 @@
 #include <fstream>
 #include <sstream>
 
-#include "../include/instruccion.hpp"
 #include "../include/programa.hpp"
-#include "../include/cinta_salida.hpp" // Singleton
-#include "../include/cinta_entrada.hpp" // Singleton
-#include "../include/set_etiquetas.hpp"
-#include "../include/contador_de_programa.hpp"
 
 void cargarCinta(char*);
 void ejecutar(const Programa&, char*);
 void volcarCinta(char*);
 bool menu();
+void ayuda();
 
 // TODO controlar número de parametros y los propios parametros
 int main(int argc, char *argv[])
 {
   try
   {
+    if (argc != 5)
+    {
+      ayuda();
+      throw "Se necesita cuatro valores\n";
+    }
     cargarCinta(argv[2]);
     Programa programa(argv[1]); // Cargar Programa
     ejecutar(programa, argv[4]);
@@ -117,10 +118,18 @@ bool menu()
       case 'x':
         std::cout << "Cerrando programa\n";
         break;
+      case 'h':
+        ayuda();
+        break;
       default:
         std::cout << "Esa opción no esta contemplada\n";
     }
   } while (opcion != 'e' && opcion != 'x');
   if (opcion == 'x') return false;
   return true;
+}
+
+void ayuda()
+{
+  std::cout << "Ejecute \"./bin/main <input_tape> <output_tape> <debug>[0|1]\"\n";
 }

@@ -27,7 +27,7 @@ int CintaEntrada::read()
   return cinta_entrada_[cabeza_++];
 }
 
-void CintaEntrada::set_cinta_entrada(std::vector<int>& cinta_entrada)
+void CintaEntrada::set_cinta_entrada(const std::vector<int>& cinta_entrada)
 {
   static int ROM = 1;
   if (ROM)

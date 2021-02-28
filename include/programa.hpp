@@ -4,11 +4,16 @@
 #include <sstream>
 
 #include "instruccion.hpp"
+#include "set_etiquetas.hpp"
+#include "cinta_salida.hpp" // Singleton
+#include "cinta_entrada.hpp" // Singleton
+#include "contador_de_programa.hpp" // Singleton
+#include "memoria.hpp" // Singleton
 
 class Programa
 {
   public:
-    Programa(char *);
+    explicit Programa(char *);
     int ejecutar() const;
     void insertar_instruccion(Instruccion);
     const size_t get_sz();
