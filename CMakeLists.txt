@@ -10,6 +10,7 @@ set(SOURCES
   src/cinta_entrada.cpp
   src/memoria.cpp
   src/contador_de_programa.cpp
+  src/halt.cpp
 )
 
 set(CMAKE_CXX_FLAGS "-O2")

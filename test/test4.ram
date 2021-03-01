@@ -6,7 +6,7 @@ bucle:	READ 1
 				LOAD 1
 				JZERO fin
 				LOAD 1
-				MUL =2
+				MULT =2
 				STORE 1
 				WRITE 1
 				JUMP bucle

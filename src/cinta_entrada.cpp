@@ -23,7 +23,6 @@ const size_t CintaEntrada::get_sz()
 
 int CintaEntrada::read()
 {
-  std::cout << "READ: " << cinta_entrada_[cabeza_] << " Cabeza: " << cabeza_ << '\n';
   return cinta_entrada_[cabeza_++];
 }
 

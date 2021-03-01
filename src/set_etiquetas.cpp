@@ -10,5 +10,10 @@ void SetEtiquetas::insertar(std::string etiqueta, int direccion)
 
 int SetEtiquetas::buscar(std::string etiqueta) const
 {
-  return set_etiquetas_.find(etiqueta)->second;
+  auto buscar = set_etiquetas_.find(etiqueta);
+  if (buscar == set_etiquetas_.end())
+  {
+    throw std::out_of_range("La etiqueta " + etiqueta + " no ha sido definida\n");
+  }
+  return buscar -> second;
 }

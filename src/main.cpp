@@ -24,15 +24,33 @@ int main(int argc, char *argv[])
     cargarCinta(argv[2]);
     Programa programa(argv[1]); // Cargar Programa
     ejecutar(programa, argv[4]);
-    volcarCinta(argv[3]);
   }
   catch(const std::exception& e)
   {
+    volcarCinta(argv[3]);
     std::cout << e.what();
   }
   catch(const char* message)
   {
+    volcarCinta(argv[3]);
     std::cout << message;
+  }
+  catch(const Halt &e)
+  {
+    if (e.isSucceed())
+    {
+      volcarCinta(argv[3]);
+      std::cout << e.what();
+    }
+    else
+    {
+      volcarCinta(argv[3]);
+      std::cerr << "Error: " << e.what() << "|| Línea " << Pc::get_instance().get_Pc() + 1<< '\n';
+    }
+  }
+  catch(...)
+  {
+    std::cout << "Ha habido un error no especificado\n";
   }
   return 0;
 }

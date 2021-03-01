@@ -9,6 +9,7 @@
 #include "cinta_entrada.hpp" // Singleton
 #include "contador_de_programa.hpp" // Singleton
 #include "memoria.hpp" // Singleton
+#include "halt.hpp" // Custom exception
 
 class Programa
 {
@@ -24,3 +25,5 @@ class Programa
     SetEtiquetas set_etiquetas_;
     std::vector<Instruccion> programa_;
 };
+
+bool isInmediato(const std::string& opcode, std::string& operando);
