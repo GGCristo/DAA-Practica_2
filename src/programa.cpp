@@ -2,6 +2,7 @@
 
 Programa::Programa(char* fichero)
 {
+  halt_ = false;
   std::fstream f_programaRAM;
   f_programaRAM.open(fichero, std::ios::in);
   if (!f_programaRAM)
@@ -45,19 +46,14 @@ Programa::Programa(char* fichero)
   f_programaRAM.close();
 }
 
+const bool Programa::isHalt()
+{
+  return halt_;
+}
+
 void Programa::insertar_instruccion(Instruccion instruccion)
 {
   programa_.push_back(instruccion);
-}
-
-const size_t Programa::get_sz()
-{
-  return programa_.size();
-}
-
-const size_t Programa::get_sz() const
-{
-  return programa_.size();
 }
 
 const Instruccion& Programa::operator [](int index)
@@ -70,172 +66,195 @@ const Instruccion& Programa::operator [](int index) const
   return programa_[index];
 }
 
-int Programa::ejecutar(bool debug) const
+void Programa::ejecutar(bool debug)
 {
   Memoria* memoria = &Memoria::get_instance();
   CintaSalida* cinta_salida = &CintaSalida::get_instance();
   CintaEntrada* cinta_entrada = &CintaEntrada::get_instance();
   Pc* pc = &Pc::get_instance();
+  if (pc->get_Pc() >= programa_.size())
+  {
+    throw Halt("SEGFAULT: Se ha terminado el programa sin alcanzar el estado HALT\n");
+  }
   std::string opcode = programa_[pc->get_Pc()].opcode_;
   std::string operando = programa_[pc->get_Pc()].operando_;
+  if (debug) std::cout << opcode << ' ' << operando << '\n';
   if (opcode == "load" || opcode == "LOAD")
   {
-    if (debug) std::cout << opcode << ' ' << operando << '\n';
     if (isInmediato(opcode, operando))
+    {
       memoria -> escribir(0, std::stoi(operando));
+    }
     else
+    {
       memoria -> escribir(0, (*memoria)[std::stoi(operando)]);
+    }
     pc -> incrementar();
-    return 1;
   }
-  else if (opcode == "store" || opcode == "STORE") // TODO *
+  else if (opcode == "store" || opcode == "STORE")
   {
-    if (debug) std::cout << opcode << ' ' << operando << '\n';
-    try
+    if (isIndirecto(opcode, operando))
     {
-      int i_operando = std::stoi(operando);
-      memoria -> escribir(i_operando, memoria->get_acumulador());
+      memoria -> escribir((*memoria)[std::stoi(operando)], memoria->get_acumulador());
     }
-    catch (std::invalid_argument &e)
+    else
     {
-      if (operando[0] == '*')
-      {
-        operando.erase(operando.begin());
-        memoria -> escribir((*memoria)[std::stoi(operando)], memoria->get_acumulador());
-      }
-      else
-      {
-        throw Halt("La operación " + opcode + ' ' + operando + " no es valida\n");
-      }
+      memoria -> escribir(std::stoi(operando), memoria->get_acumulador());
     }
     pc -> incrementar();
-    return 1;
   }
   else if (opcode == "add" || opcode == "ADD")
   {
-    if (debug) std::cout << opcode << ' ' << operando << '\n';
     if (isInmediato(opcode, operando))
+    {
       memoria -> escribir(0, memoria->get_acumulador() + std::stoi(operando));
+    }
     else
+    {
       memoria -> escribir(0, memoria->get_acumulador() + (*memoria)[std::stoi(operando)]);
+    }
     pc -> incrementar();
-    return 1;
   }
   else if (opcode == "sub" || opcode == "SUB")
   {
-    if (debug) std::cout << opcode << ' ' << operando << '\n';
     if (isInmediato(opcode, operando))
+    {
       memoria -> escribir(0, memoria->get_acumulador() - std::stoi(operando));
+    }
     else
+    {
       memoria -> escribir(0, memoria->get_acumulador() - (*memoria)[std::stoi(operando)]);
+    }
     pc -> incrementar();
-    return 1;
   }
   else if (opcode == "mult" || opcode == "MULT")
   {
-    if (debug) std::cout << opcode << ' ' << operando << '\n';
     if (isInmediato(opcode, operando))
+    {
       memoria -> escribir(0, memoria->get_acumulador() * std::stoi(operando));
+    }
     else
+    {
       memoria -> escribir(0, memoria->get_acumulador() * (*memoria)[std::stoi(operando)]);
+    }
     pc -> incrementar();
-    return 1;
   }
   else if(opcode == "div" || opcode == "DIV")
   {
-    if (debug) std::cout << "Voy a hace un MULT\n";
     if (isInmediato(opcode, operando))
+    {
       memoria -> escribir(0, memoria->get_acumulador() / std::stoi(operando));
+    }
     else
+    {
       memoria -> escribir(0, memoria->get_acumulador() / (*memoria)[std::stoi(operando)]);
+    }
     pc -> incrementar();
-    return 1;
   }
-  else if (opcode == "read" || opcode == "READ") // TODO *
+  else if (opcode == "read" || opcode == "READ")
   {
-    if (debug) std::cout << "READ: \n";
-    if (operando[0] != '*')
+    if (isIndirecto(opcode, operando))
+    {
+      memoria -> escribir((*memoria)[std::stoi(operando)], cinta_entrada->read());
+    }
+    else
     {
       memoria -> escribir(std::stoi(operando), cinta_entrada->read());
     }
-    else
-    {
-      operando.erase(operando.begin());
-      memoria -> escribir((*memoria)[std::stoi(operando)], cinta_entrada->read());
-    }
     pc -> incrementar();
-    return 1;
   }
   else if (opcode == "write" || opcode == "WRITE")
   {
-    if (debug) std::cout << opcode << ' ' << operando << '\n';
     if (isInmediato(opcode, operando))
+    {
       cinta_salida -> write(std::stoi(operando));
+    }
     else
+    {
       cinta_salida->write((*memoria)[std::stoi(operando)]);
+    }
     pc -> incrementar();
-    return 1;
   }
   else if (opcode == "jump" || opcode == "JUMP")
   {
-    if (debug) std::cout << "JUMP a " << operando << '\n';
     pc -> jump(set_etiquetas_.buscar(operando));
-    return 1;
   }
   else if (opcode == "jgtz" || opcode == "JGTZ")
   {
     if (memoria->get_acumulador() > 0)
     {
-      if (debug) std::cout << "JGTZ a " << operando << '\n';
       pc -> jump(set_etiquetas_.buscar(operando));
     }
     else
     {
-      if (debug) std::cout << "Sorteo JGTZ";
+      if (debug) std::cout << "[No se realiza el salto\n]";
       pc -> incrementar();
     }
-    return 1;
   }
   else if (opcode == "jzero" || opcode == "JZERO")
   {
     if (memoria->get_acumulador() == 0)
     {
-      if (debug) std::cout << "JZERO a " << operando << '\n';
       pc -> jump(set_etiquetas_.buscar(operando));
     }
     else
     {
-      if (debug) std::cout << "Sorteo JZERO\n";
+      if (debug) std::cout << "[No se realiza el salto]\n";
       pc -> incrementar();
     }
-    return 1;
   }
   else if (opcode == "halt" || opcode == "HALT")
   {
-    throw Halt("El programa terminó correctamente\n", true);
+    halt_ = true;
   }
   else
   {
     throw Halt("La operacion " + opcode + " no existe\n");
   }
-  return 0;
 }
 
 bool isInmediato(const std::string& opcode, std::string& operando)
 {
-  bool literal = false;
+  bool posible_inmediato = false;
   try
   {
     if (operando[0] == '=')
     {
       operando.erase(operando.begin());
-      literal = true;
+      posible_inmediato = true;
     }
     std::stoi(operando);
-    return literal;
+    return posible_inmediato;
   }
   catch (std::invalid_argument &e)
   {
+    if (posible_inmediato)
+    {
+      throw Halt("La operación " + opcode + " =" + operando + " no es valida\n");
+    }
+    throw Halt("La operación " + opcode + ' ' + operando + " no es valida\n");
+  }
+}
+
+bool isIndirecto(const std::string& opcode, std::string& operando)
+{
+  bool posible_indirecto = false;
+  try
+  {
+    if (operando[0] == '*')
+    {
+      operando.erase(operando.begin());
+      posible_indirecto = true;
+    }
+    std::stoi(operando);
+    return posible_indirecto;
+  }
+  catch (std::invalid_argument &e)
+  {
+    if (posible_indirecto)
+    {
+      throw Halt("La operación " + opcode + " *" + operando + " no es valida\n");
+    }
     throw Halt("La operación " + opcode + ' ' + operando + " no es valida\n");
   }
 }

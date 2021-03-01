@@ -6,12 +6,11 @@
 #include "../include/programa.hpp"
 
 void cargarCinta(char*);
-void ejecutar(const Programa&, char*);
+void ejecutar(Programa&, char*);
 void volcarCinta(char*);
 bool menu();
 void ayuda();
 
-// TODO controlar número de parametros y los propios parametros
 int main(int argc, char *argv[])
 {
   try
@@ -37,19 +36,12 @@ int main(int argc, char *argv[])
   }
   catch(const Halt &e)
   {
-    if (e.isSucceed())
-    {
-      volcarCinta(argv[3]);
-      std::cout << e.what();
-    }
-    else
-    {
-      volcarCinta(argv[3]);
-      std::cerr << "Error: " << e.what() << "|| Línea " << Pc::get_instance().get_Pc() + 1<< '\n';
-    }
+    volcarCinta(argv[3]);
+    std::cerr << "Error: " << e.what() << "|| Línea " << Pc::get_instance().get_Pc() + 1<< '\n';
   }
   catch(...)
   {
+    volcarCinta(argv[3]);
     std::cout << "Ha habido un error no especificado\n";
   }
   return 0;
@@ -88,7 +80,7 @@ void volcarCinta(char* fichero)
   f_cinta_output.close();
 }
 
-void ejecutar(const Programa& programa, char* debug)
+void ejecutar(Programa& programa, char* debug)
 {
   bool b_debug = std::stoi(debug);
 
@@ -97,13 +89,18 @@ void ejecutar(const Programa& programa, char* debug)
     do
     {
       if (!menu()) break;
+      programa.ejecutar(b_debug);
     }
-    while (programa.ejecutar(b_debug));
+    while (!programa.isHalt());
   }
   else
   {
-    while (programa.ejecutar(b_debug)) { /* No necesito el cuerpo */ };
+    while (!programa.isHalt())
+    {
+      programa.ejecutar(b_debug);
+    };
   }
+  std::cout << "El programa se ejecutó correctamente\n";
 }
 
 bool menu()
@@ -115,13 +112,10 @@ bool menu()
     std::cin >> opcion;
     switch(opcion)
     {
-      case 'e':
+      case 't':
         break;
       case 'r':
-        for (size_t i = 0; i < Memoria::get_instance().get_sz(); i++)
-        {
-          std::cout << Memoria::get_instance()[i] << '\n';
-        }
+        Memoria::get_instance().mostrar();
         break;
       case 'i':
         for (size_t i = 0; i < CintaEntrada::get_instance().get_sz(); i++)
@@ -144,7 +138,7 @@ bool menu()
       default:
         std::cout << "Esa opción no esta contemplada\n";
     }
-  } while (opcion != 'e' && opcion != 'x');
+  } while (opcion != 't' && opcion != 'x' && opcion != 'e');
   if (opcion == 'x') return false;
   return true;
 }

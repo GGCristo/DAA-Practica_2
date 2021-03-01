@@ -26,3 +26,12 @@ const int Memoria::operator [](int posicion)
 {
   return memoria_[posicion];
 }
+
+std::ostream& Memoria::mostrar(std::ostream& os)
+{
+  for (size_t i = 0; i < memoria_.size(); i++)
+  {
+    os << "R"<< i << ": " <<memoria_[i] << '\n';
+  }
+  return os;
+}
