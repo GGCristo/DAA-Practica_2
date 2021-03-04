@@ -23,5 +23,5 @@ void Pc::jump(int direccion)
 
 const int Pc::get_Pc()
 {
-  return pc_;
+  return pc_++;
 }
