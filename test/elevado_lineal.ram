@@ -1,0 +1,15 @@
+read 0
+store 1
+store 3
+sub =1
+store 2
+LOOP: JZERO end
+load 3
+mult 1
+store 3
+load 2
+sub =1
+store 2
+jump LOOP
+end: write 3
+halt

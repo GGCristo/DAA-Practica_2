@@ -4,7 +4,9 @@
 class ISub: public Instruccion_Interfaz
 {
   public:
-    ISub(std::string);
-    int ejecutar();
+    ISub(std::string&, std::string&);
+    int ejecutar(Memoria&, bool) override;
   private:
+    int operandoI_;
+    int tipoAcceso_;
 };

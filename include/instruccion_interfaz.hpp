@@ -3,12 +3,22 @@
 #include <string>
 
 #include "memoria.hpp"
+#include "halt.hpp"
 
+enum enum_acceso {Indirecto, Inmediato, Directo};
+
+// TODO mejorar eficiencia del std::stoi
 class Instruccion_Interfaz
 {
   public:
+    Instruccion_Interfaz() = default;
+    Instruccion_Interfaz(std::string&, std::string&);
     virtual ~Instruccion_Interfaz() = default;
-    virtual int ejecutar() = 0;
+    virtual int ejecutar(Memoria&, bool debug = false) = 0;
   protected:
+    std::string opcode_;
     std::string operando_;
+    int isInmediato(int&);
+    int isIndirecto(int&);
+    int isInmediatoOIndirecto(int&);
 };

@@ -1,12 +1,10 @@
 #include "../../include/instrucciones/IHalt.hpp"
 
 IHalt::IHalt()
-{
+{}
 
-}
-
-int IHalt::ejecutar()
+int IHalt::ejecutar(Memoria& memoria, bool debug)
 {
-  std::cout << "Soy el Halt\n";
+  std::cout << "El programa termina\n";
   return 1;
 }

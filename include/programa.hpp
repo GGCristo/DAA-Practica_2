@@ -5,21 +5,22 @@
 #include <memory>
 
 #include "instruccion_interfaz.hpp"
+#include "cinta_entrada.hpp"
+#include "cinta_salida.hpp"
 #include "set_etiquetas.hpp"
-#include "cinta_salida.hpp" // Singleton
-#include "cinta_entrada.hpp" // Singleton
 #include "contador_de_programa.hpp" // Singleton
 #include "memoria.hpp" // Singleton
 #include "halt.hpp" // Custom exception
-#include "../include/instrucciones/cabeceras.hpp"
 
 class Programa
 {
   public:
-    explicit Programa(char *);
-    int ejecutar(bool debug = 0);
+    Programa();
+    Programa(const Programa&);
+    explicit Programa(char *, CintaEntrada&, CintaSalida&);
+    int ejecutar(Memoria&, bool debug = 0);
     const bool isHalt();
-    void insertar_instruccion(std::string, std::string);
+    void insertar_instruccion(std::string, std::string, CintaEntrada&, CintaSalida&);
     const Instruccion_Interfaz& operator [](int);
     const Instruccion_Interfaz& operator [](int) const;
   private:

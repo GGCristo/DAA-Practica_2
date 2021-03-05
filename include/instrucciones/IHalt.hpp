@@ -5,6 +5,6 @@ class IHalt: public Instruccion_Interfaz
 {
   public:
     IHalt();
-    int ejecutar();
+    int ejecutar(Memoria&, bool) override;
   private:
 };

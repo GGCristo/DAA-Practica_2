@@ -5,24 +5,27 @@ CintaSalida::CintaSalida()
   cabeza_ = 0;
 }
 
-CintaSalida& CintaSalida::get_instance()
-{
-  static CintaSalida instance;
-  return instance;
-}
-
 void CintaSalida::write(int valor)
 {
-  cinta_salida_.push_back(valor);
+  cintaSalida_.push_back(valor);
   cabeza_++;
 }
 
 const int CintaSalida::operator [] (int posicion)
 {
-  return cinta_salida_[posicion];
+  return cintaSalida_[posicion];
 }
 
 const size_t CintaSalida::get_sz()
 {
-  return cinta_salida_.size();
+  return cintaSalida_.size();
+}
+
+std::ostream& CintaSalida::mostrar(std::ostream& os)
+{
+  for (size_t i = 0; i < cintaSalida_.size(); i++)
+  {
+    std::cout << cintaSalida_[i] << '\n';
+  }
+    return os;
 }

@@ -1,11 +1,6 @@
 #include "../include/memoria.hpp"
 
-Memoria& Memoria::get_instance()
-{
-  static Memoria instance;
-  return instance;
-}
-
+// escribir (posicion, valor);
 void Memoria::escribir(int posicion, int valor)
 {
   if (memoria_.size() <= posicion) memoria_.resize(posicion + 1);

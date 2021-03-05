@@ -1,12 +1,35 @@
 #include "../../include/instrucciones/IDiv.hpp"
 
-IDiv::IDiv(std::string operando)
+IDiv::IDiv(std::string& opcode, std::string& operando): Instruccion_Interfaz(opcode, operando)
 {
-  operando_ = operando;
+  tipoAcceso_ = isInmediatoOIndirecto(operandoI_);
 }
 
-int IDiv::ejecutar()
+int IDiv::ejecutar(Memoria& memoria, bool debug)
 {
-  std::cout << "Soy el ADD\n";
+  if (debug)
+    std::cout << opcode_ << operando_ << '\n';
+  int denominador;
+  if (tipoAcceso_ == Inmediato)
+  {
+    denominador = operandoI_;
+  }
+  else if (tipoAcceso_ == Directo)
+  {
+    denominador = memoria[operandoI_];
+  }
+  else if (tipoAcceso_ == Indirecto)
+  {
+    denominador = memoria[memoria[operandoI_]];
+  }
+  else
+  {
+    throw Halt("Ha ocurrido un error interno:\nEl parser no funciona bien\n");
+  }
+  if (denominador == 0)
+  {
+    throw Halt("Se ha intentado dividir entre cero\n");
+  }
+  memoria.escribir(0, memoria.get_acumulador() / denominador);
   return 0;
 }

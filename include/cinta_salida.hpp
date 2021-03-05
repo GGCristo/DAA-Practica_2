@@ -1,17 +1,17 @@
 #pragma once
 #include <vector>
+#include <iostream>
 
 class CintaSalida
 {
   public:
     CintaSalida();
-    static CintaSalida& get_instance();
     const int operator [] (int);
     const size_t get_sz();
-    CintaSalida(const CintaSalida&) = delete;
-    CintaSalida& operator = (const CintaSalida&) = delete;
+    std::ostream& mostrar(std::ostream& os = std::cout);
   private:
-    std::vector<int> cinta_salida_;
+    std::vector<int> cintaSalida_;
     int cabeza_ = 0;
     void write(int);
+    friend class IWrite;
 };

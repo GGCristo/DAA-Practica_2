@@ -5,25 +5,27 @@ CintaEntrada::CintaEntrada()
   cabeza_ = 0;
 }
 
-CintaEntrada& CintaEntrada::get_instance()
+CintaEntrada::~CintaEntrada()
 {
-  static CintaEntrada instance;
-  return instance;
 }
 
 const int CintaEntrada::operator [] (int posicion)
 {
-  return cinta_entrada_[posicion];
+  return cintaEntrada_[posicion];
 }
 
 const size_t CintaEntrada::get_sz()
 {
-  return cinta_entrada_.size();
+  return cintaEntrada_.size();
 }
 
 int CintaEntrada::read()
 {
-  return cinta_entrada_[cabeza_++];
+  if (cabeza_ >= cintaEntrada_.size())
+  {
+    throw Halt("Se intento leer fuera de la cinta\n");
+  }
+  return cintaEntrada_[cabeza_++];
 }
 
 void CintaEntrada::set_cinta_entrada(const std::vector<int>& cinta_entrada)
@@ -31,11 +33,20 @@ void CintaEntrada::set_cinta_entrada(const std::vector<int>& cinta_entrada)
   static int ROM = 1;
   if (ROM)
   {
-    cinta_entrada_ = cinta_entrada;
+    cintaEntrada_ = cinta_entrada;
     ROM = 0;
   }
   else
   {
     throw "No se puede sobrescribir la cinta de entrada\n";
   }
+}
+
+std::ostream& CintaEntrada::mostrar(std::ostream& os)
+{
+  for (size_t i = 0; i < cintaEntrada_.size(); i++)
+  {
+    std::cout << cintaEntrada_[i] << '\n';
+  }
+    return os;
 }

@@ -1,12 +1,10 @@
 #include "../include/ram.hpp"
 
-Ram::Ram(char *argv[]) : programa_(argv[1]) // Cargar Programa
+Ram::Ram(char *argv[]) : programa_(argv[1], cintaEntrada_, cintaSalida_) // Cargar Programa
 {
-  std::cout << "Entro en el constructor\n";
   halt_ = false;
   debug_ = std::stoi(argv[4]);
   cargarCinta(argv[2]);
-  std::cout << "Salgo del constructor\n";
 }
 
 void Ram::cargarCinta(char* fichero)
@@ -23,21 +21,23 @@ void Ram::cargarCinta(char* fichero)
   {
     cinta_aux.push_back(std::stoi(palabra));
   }
-  CintaEntrada::get_instance().set_cinta_entrada(cinta_aux);
+  cintaEntrada_.set_cinta_entrada(cinta_aux);
   f_cinta_input.close();
 }
 
 void Ram::volcarCinta(char* fichero)
 {
+  std::cout << "Escribiendo en la cinta de Salida...\n";
   std::fstream f_cinta_output;
   f_cinta_output.open(fichero, std::ios::out);
   if(!f_cinta_output)
   {
     throw "No se ha podido escribir en la cinta de salida\n";
   }
-  for (size_t i = 0; i < CintaSalida::get_instance().get_sz(); i++)
+  for (size_t i = 0; i < cintaSalida_.get_sz(); i++)
   {
-    f_cinta_output << CintaSalida::get_instance()[i] << ' ';
+    // std::cout << "Escribo: " << cintaSalida_[i] << '\n';
+    f_cinta_output << cintaSalida_[i] << ' ';
   }
   f_cinta_output.close();
 }
@@ -47,28 +47,38 @@ bool Ram::isHalt()
   return halt_;
 }
 
+CintaEntrada Ram::get_cinta_entrada()
+{
+  return cintaEntrada_;
+}
+
+CintaSalida Ram::get_cinta_salida()
+{
+  return cintaSalida_;
+}
+
 void Ram::ejecutar()
 {
+  bool ejecutar = !debug_;
   if (debug_)
-  {
-    do
-    {
-      if (!menu()) break;
-      halt_ = programa_.ejecutar(debug_);
-    }
-    while (!isHalt());
-  }
-  else
   {
     while (!isHalt())
     {
-      halt_ = programa_.ejecutar(debug_);
+      if (!menu(memoria_, cintaEntrada_, cintaSalida_, ejecutar)) break;
+      halt_ = programa_.ejecutar(memoria_, debug_);
+    }
+  }
+  if (ejecutar)
+  {
+    while (!isHalt())
+    {
+      halt_ = programa_.ejecutar(memoria_, debug_);
     };
   }
   std::cout << "El programa se ejecutó correctamente\n";
 }
 
-bool Ram::menu()
+bool Ram::menu(Memoria& memoria, CintaEntrada& cintaEntrada, CintaSalida& cintaSalida, bool& ejecutar)
 {
   char opcion;
   do
@@ -79,20 +89,17 @@ bool Ram::menu()
     {
       case 't':
         break;
+      case 'e':
+        ejecutar = true;
+        break;
       case 'r':
-        Memoria::get_instance().mostrar();
+        memoria.mostrar();
         break;
       case 'i':
-        for (size_t i = 0; i < CintaEntrada::get_instance().get_sz(); i++)
-        {
-          std::cout << CintaEntrada::get_instance()[i] << '\n';
-        }
+        cintaEntrada.mostrar();
         break;
       case 'o':
-        for (size_t i = 0; i < CintaSalida::get_instance().get_sz(); i++)
-        {
-          std::cout << CintaSalida::get_instance()[i] << '\n';
-        }
+        cintaSalida.mostrar();
         break;
       case 'x':
         std::cout << "Cerrando programa\n";
@@ -104,7 +111,7 @@ bool Ram::menu()
         std::cout << "Esa opción no esta contemplada\n";
     }
   } while (opcion != 't' && opcion != 'x' && opcion != 'e');
-  if (opcion == 'x') return false;
+  if (opcion == 'x' || opcion == 'e') return false;
   return true;
 }
 

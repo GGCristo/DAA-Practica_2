@@ -5,12 +5,6 @@ Pc::Pc()
   pc_ = 0;
 }
 
-Pc& Pc::get_instance()
-{
-  static Pc instance;
-  return instance;
-}
-
 void Pc::incrementar()
 {
   pc_++;
@@ -21,7 +15,12 @@ void Pc::jump(int direccion)
   pc_ = direccion;
 }
 
-const int Pc::get_Pc()
+const int Pc::acceso()
 {
   return pc_++;
+}
+
+const std::string Pc::peek()
+{
+  return std::to_string(pc_);
 }

@@ -4,7 +4,9 @@
 class IAdd: public Instruccion_Interfaz
 {
   public:
-    IAdd(std::string);
-    int ejecutar();
+    IAdd(std::string&, std::string&);
+    int ejecutar(Memoria&, bool debug) override;
   private:
+    int operandoI_;
+    int tipoAcceso_;
 };

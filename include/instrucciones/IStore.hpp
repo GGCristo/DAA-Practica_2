@@ -4,7 +4,9 @@
 class IStore: public Instruccion_Interfaz
 {
   public:
-    IStore(std::string);
-    int ejecutar();
+    IStore(std::string&, std::string&);
+    int ejecutar(Memoria&, bool) override;
   private:
+    int operandoI_;
+    int tipoAcceso_;
 };

@@ -1,18 +1,21 @@
 #pragma once
 #include <vector>
+#include <iostream> // TODO borrar
+
+#include "halt.hpp"
 
 class CintaEntrada
 {
   public:
     CintaEntrada();
+    ~CintaEntrada();
     const size_t get_sz();
-    static CintaEntrada& get_instance();
     void set_cinta_entrada(const std::vector<int>&);
     const int operator [] (int);
-    CintaEntrada(const CintaEntrada&) = delete;
-    CintaEntrada& operator = (const CintaEntrada&) = delete;
+    std::ostream& mostrar(std::ostream& os = std::cout);
   private:
     int read();
-    std::vector<int> cinta_entrada_;
+    std::vector<int> cintaEntrada_;
     int cabeza_;
+    friend class IRead;
 };

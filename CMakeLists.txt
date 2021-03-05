@@ -11,6 +11,7 @@ set(SOURCES
   src/contador_de_programa.cpp
   src/halt.cpp
   src/ram.cpp
+  src/instruccion_interfaz.cpp
   src/instrucciones/IAdd.cpp
   src/instrucciones/IDiv.cpp
   src/instrucciones/IHalt.cpp
