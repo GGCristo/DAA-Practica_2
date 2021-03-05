@@ -7,7 +7,7 @@ Instruccion_Interfaz(opcode, operando)
   set_etiquetas_ = &set_etiquetas;
 }
 
-int IJump::ejecutar(Memoria& memoria, bool debug)
+int IJump::ejecutar(Memoria&, bool debug)
 {
   if (debug)
     std::cout << opcode_ << operando_ << '\n';

@@ -5,17 +5,12 @@ Pc::Pc()
   pc_ = 0;
 }
 
-void Pc::incrementar()
-{
-  pc_++;
-}
-
 void Pc::jump(int direccion)
 {
   pc_ = direccion;
 }
 
-const int Pc::acceso()
+int Pc::acceso()
 {
   return pc_++;
 }

@@ -9,13 +9,13 @@ class CintaEntrada
   public:
     CintaEntrada();
     ~CintaEntrada();
-    const size_t get_sz();
+    size_t get_sz();
     void set_cinta_entrada(const std::vector<int>&);
-    const int operator [] (int);
+    int operator [] (int);
     std::ostream& mostrar(std::ostream& os = std::cout);
   private:
     int read();
     std::vector<int> cintaEntrada_;
-    int cabeza_;
+    unsigned long cabeza_;
     friend class IRead;
 };

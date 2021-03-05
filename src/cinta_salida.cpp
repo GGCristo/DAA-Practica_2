@@ -11,12 +11,12 @@ void CintaSalida::write(int valor)
   cabeza_++;
 }
 
-const int CintaSalida::operator [] (int posicion)
+int CintaSalida::operator [] (int posicion)
 {
   return cintaSalida_[posicion];
 }
 
-const size_t CintaSalida::get_sz()
+size_t CintaSalida::get_sz()
 {
   return cintaSalida_.size();
 }

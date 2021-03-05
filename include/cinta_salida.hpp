@@ -6,8 +6,8 @@ class CintaSalida
 {
   public:
     CintaSalida();
-    const int operator [] (int);
-    const size_t get_sz();
+    int operator [] (int);
+    size_t get_sz();
     std::ostream& mostrar(std::ostream& os = std::cout);
   private:
     std::vector<int> cintaSalida_;

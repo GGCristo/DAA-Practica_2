@@ -9,12 +9,12 @@ CintaEntrada::~CintaEntrada()
 {
 }
 
-const int CintaEntrada::operator [] (int posicion)
+int CintaEntrada::operator [] (int posicion)
 {
   return cintaEntrada_[posicion];
 }
 
-const size_t CintaEntrada::get_sz()
+size_t CintaEntrada::get_sz()
 {
   return cintaEntrada_.size();
 }

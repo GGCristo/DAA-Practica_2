@@ -6,7 +6,7 @@
 #include "../include/programa.hpp"
 #include "../include/ram.hpp"
 
-int main(int argc, char *argv[])
+int main(int argc, char** argv)
 {
   try
   {
@@ -16,7 +16,10 @@ int main(int argc, char *argv[])
     }
     Ram ram(argv);
     ram.ejecutar();
-    ram.volcarCinta(argv[3]);
+  }
+  catch(const Halt &e)
+  {
+    std::cerr << "Error en tiempo de compilación: " << e.what();
   }
   catch(const std::exception& e)
   {
@@ -26,13 +29,10 @@ int main(int argc, char *argv[])
   {
     std::cout << message;
   }
-  catch(const Halt &e)
-  {
-    std::cerr << "Error: " << e.what();
-  }
   catch(...)
   {
     std::cout << "Ha habido un error no especificado\n";
   }
+  std::cout << "Se cierra el programa\n";
   return 0;
 }

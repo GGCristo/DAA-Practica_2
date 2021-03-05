@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string.h>
+
 #include "cinta_entrada.hpp" // Singleton
 #include "cinta_salida.hpp" // Singleton
 // #include "contador_de_programa.hpp" // Singleton
@@ -9,13 +11,10 @@
 class Ram
 {
   public:
-    Ram();
-    explicit Ram(char* argc[]);
+    Ram(){};
+    explicit Ram(char**);
     void ejecutar();
     bool isHalt();
-    CintaEntrada get_cinta_entrada();
-    CintaSalida get_cinta_salida();
-    void volcarCinta(char*);
   private:
     CintaEntrada cintaEntrada_;
     CintaSalida cintaSalida_;
@@ -23,7 +22,10 @@ class Ram
     Programa programa_;
     bool halt_;
     bool debug_;
+    char** argumentos_;
     void cargarCinta(char*);
+    void volcarCinta(char*);
+    void inner_ejecutar();
     bool menu(Memoria&, CintaEntrada&, CintaSalida&, bool&);
 };
 

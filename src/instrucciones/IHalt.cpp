@@ -3,8 +3,8 @@
 IHalt::IHalt()
 {}
 
-int IHalt::ejecutar(Memoria& memoria, bool debug)
+int IHalt::ejecutar(Memoria&, bool)
 {
-  std::cout << "El programa termina\n";
+  std::cout << "El programa se ejecutó con éxito\n";
   return 1;
 }

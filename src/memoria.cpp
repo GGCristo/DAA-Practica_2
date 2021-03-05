@@ -1,23 +1,23 @@
 #include "../include/memoria.hpp"
 
 // escribir (posicion, valor);
-void Memoria::escribir(int posicion, int valor)
+void Memoria::escribir(unsigned long posicion, int valor)
 {
   if (memoria_.size() <= posicion) memoria_.resize(posicion + 1);
   memoria_[posicion] = valor;
 }
 
-const int Memoria::get_acumulador()
+int Memoria::get_acumulador()
 {
   return memoria_[0];
 }
 
-const size_t Memoria::get_sz()
+size_t Memoria::get_sz()
 {
   return memoria_.size();
 }
 
-const int Memoria::operator [](int posicion)
+int Memoria::operator [](int posicion)
 {
   return memoria_[posicion];
 }

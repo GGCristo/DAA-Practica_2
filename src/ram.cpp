@@ -1,10 +1,11 @@
 #include "../include/ram.hpp"
 
-Ram::Ram(char *argv[]) : programa_(argv[1], cintaEntrada_, cintaSalida_) // Cargar Programa
+Ram::Ram(char** argv) : programa_(argv[1], cintaEntrada_, cintaSalida_) // Cargar Programa
 {
   halt_ = false;
-  debug_ = std::stoi(argv[4]);
-  cargarCinta(argv[2]);
+  argumentos_ = argv;
+  debug_ = std::stoi(argumentos_[4]);
+  cargarCinta(argumentos_[2]);
 }
 
 void Ram::cargarCinta(char* fichero)
@@ -47,17 +48,20 @@ bool Ram::isHalt()
   return halt_;
 }
 
-CintaEntrada Ram::get_cinta_entrada()
-{
-  return cintaEntrada_;
-}
-
-CintaSalida Ram::get_cinta_salida()
-{
-  return cintaSalida_;
-}
-
 void Ram::ejecutar()
+{
+  try
+  {
+    inner_ejecutar();
+  }
+  catch(const Halt &e)
+  {
+    std::cerr << "Error en tiempo de ejecución: " << e.what();
+  }
+  volcarCinta(argumentos_[3]);
+}
+
+void Ram::inner_ejecutar()
 {
   bool ejecutar = !debug_;
   if (debug_)
@@ -75,7 +79,6 @@ void Ram::ejecutar()
       halt_ = programa_.ejecutar(memoria_, debug_);
     };
   }
-  std::cout << "El programa se ejecutó correctamente\n";
 }
 
 bool Ram::menu(Memoria& memoria, CintaEntrada& cintaEntrada, CintaSalida& cintaSalida, bool& ejecutar)

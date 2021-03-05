@@ -19,7 +19,6 @@ class Programa
     Programa(const Programa&);
     explicit Programa(char *, CintaEntrada&, CintaSalida&);
     int ejecutar(Memoria&, bool debug = 0);
-    const bool isHalt();
     void insertar_instruccion(std::string, std::string, CintaEntrada&, CintaSalida&);
     const Instruccion_Interfaz& operator [](int);
     const Instruccion_Interfaz& operator [](int) const;

@@ -124,8 +124,7 @@ int Programa::ejecutar(Memoria& memoria, bool debug)
   }
   catch(Halt &e)
   {
-    // volcarCinta(argv[3]);
     e.acoplar("|| Linea " + pc_.peek() + '\n');
-    throw e;
+    throw;
   }
 }

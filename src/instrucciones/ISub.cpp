@@ -9,15 +9,15 @@ int ISub::ejecutar(Memoria& memoria, bool debug)
 {
   if (debug)
     std::cout << opcode_ << operando_ << '\n';
-  if (Inmediato)
+  if (tipoAcceso_ == Inmediato)
   {
     memoria.escribir(0, memoria.get_acumulador() - operandoI_);
   }
-  else if (Directo)
+  else if (tipoAcceso_ == Directo)
   {
     memoria.escribir(0, memoria.get_acumulador() - (memoria)[operandoI_]);
   }
-  else if (Indirecto)
+  else if (tipoAcceso_ == Indirecto)
   {
     memoria.escribir(0, memoria.get_acumulador() - (memoria)[(memoria)[operandoI_]]);
   }
