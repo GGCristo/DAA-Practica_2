@@ -28,24 +28,21 @@ void Ram::cargarCinta(char* fichero)
 
 void Ram::volcarCinta(char* fichero)
 {
-  std::cout << "Escribiendo en la cinta de Salida...\n";
   std::fstream f_cinta_output;
   f_cinta_output.open(fichero, std::ios::out);
   if(!f_cinta_output)
   {
     throw "No se ha podido escribir en la cinta de salida\n";
   }
+  if (cintaSalida_.get_sz() > 0)
+  {
+    std::cout << "Escribiendo en la cinta de Salida...\n";
+  }
   for (size_t i = 0; i < cintaSalida_.get_sz(); i++)
   {
-    // std::cout << "Escribo: " << cintaSalida_[i] << '\n';
     f_cinta_output << cintaSalida_[i] << ' ';
   }
   f_cinta_output.close();
-}
-
-bool Ram::isHalt()
-{
-  return halt_;
 }
 
 void Ram::ejecutar()
@@ -66,15 +63,18 @@ void Ram::inner_ejecutar()
   bool ejecutar = !debug_;
   if (debug_)
   {
-    while (!isHalt())
+    while (!halt_)
     {
-      if (!menu(memoria_, cintaEntrada_, cintaSalida_, ejecutar)) break;
+      if (!menu(memoria_, cintaEntrada_, cintaSalida_, ejecutar))
+      {
+        break;
+      }
       halt_ = programa_.ejecutar(memoria_, debug_);
     }
   }
   if (ejecutar)
   {
-    while (!isHalt())
+    while (!halt_)
     {
       halt_ = programa_.ejecutar(memoria_, debug_);
     };

@@ -12,13 +12,13 @@ Programa::Programa(char* fichero, CintaEntrada& cintaEntrada, CintaSalida& cinta
   {
     throw "No se ha podido cargar el programa";
   }
-  std::string linea, palabra1, palabra2, palabra3;
+  std::string linea, palabra1, palabra2, palabra3, comentario;
   while(getline(f_programaRAM, linea))
   {
     std::stringstream linea_stream(linea);
     if (linea[0] != '#' && linea[0] != ';')
     {
-      while(linea_stream >> palabra1)
+      if (linea_stream >> palabra1)
       {
         // La línea tiene etiqueta
         if (palabra1[palabra1.size() - 1] == ':')
@@ -43,6 +43,12 @@ Programa::Programa(char* fichero, CintaEntrada& cintaEntrada, CintaSalida& cinta
           }
           insertar_instruccion(palabra1, palabra2, cintaEntrada, cintaSalida);
         }
+        // Comentarios al final
+        if (linea_stream >> comentario)
+        {
+          if (comentario[0] == '#' || comentario[0] == ';') continue;
+          else throw Halt("Solo puede haber una instrucción por línea\n");
+        }
       }
     }
   }
@@ -50,7 +56,7 @@ Programa::Programa(char* fichero, CintaEntrada& cintaEntrada, CintaSalida& cinta
 }
 
 void Programa::insertar_instruccion(std::string opcode, std::string operando,
-                                    CintaEntrada& cintaEntrada, CintaSalida& cintaSalida)
+    CintaEntrada& cintaEntrada, CintaSalida& cintaSalida)
 {
   if (opcode == "load" || opcode == "LOAD")
   {
@@ -120,11 +126,15 @@ int Programa::ejecutar(Memoria& memoria, bool debug)
 {
   try
   {
+    if (pc_.peek() >= programa_.size())
+    {
+      throw Halt("Se ha llegado al final del programa sin invocar al Halt\n");
+    }
     return programa_[pc_.acceso()] -> ejecutar(memoria, debug);
   }
   catch(Halt &e)
   {
-    e.acoplar("|| Linea " + pc_.peek() + '\n');
+    e.acoplar("|| Linea " + std::to_string(pc_.peek()) + '\n');
     throw;
   }
 }

@@ -15,7 +15,7 @@ int Pc::acceso()
   return pc_++;
 }
 
-const std::string Pc::peek()
+int Pc::peek()
 {
-  return std::to_string(pc_);
+  return pc_;
 }

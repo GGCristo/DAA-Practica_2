@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <iostream> // TODO borrar
+#include <iostream>
 
 #include "halt.hpp"
 

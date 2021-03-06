@@ -7,7 +7,6 @@
 
 enum enum_acceso {Indirecto, Inmediato, Directo};
 
-// TODO mejorar eficiencia del std::stoi
 class Instruccion_Interfaz
 {
   public:

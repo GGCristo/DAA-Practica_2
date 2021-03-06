@@ -1,9 +1,5 @@
 #include <iostream>
-#include <string>
-#include <fstream>
-#include <sstream>
 
-#include "../include/programa.hpp"
 #include "../include/ram.hpp"
 
 int main(int argc, char** argv)
@@ -23,7 +19,7 @@ int main(int argc, char** argv)
   }
   catch(const std::exception& e)
   {
-    std::cout << e.what();
+    std::cerr << e.what();
   }
   catch(const char* message)
   {
@@ -31,7 +27,7 @@ int main(int argc, char** argv)
   }
   catch(...)
   {
-    std::cout << "Ha habido un error no especificado\n";
+    std::cerr << "Ha habido un error no especificado\n";
   }
   std::cout << "Se cierra el programa\n";
   return 0;

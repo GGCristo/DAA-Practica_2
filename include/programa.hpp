@@ -8,9 +8,9 @@
 #include "cinta_entrada.hpp"
 #include "cinta_salida.hpp"
 #include "set_etiquetas.hpp"
-#include "contador_de_programa.hpp" // Singleton
-#include "memoria.hpp" // Singleton
-#include "halt.hpp" // Custom exception
+#include "contador_de_programa.hpp"
+#include "memoria.hpp"
+#include "halt.hpp"
 
 class Programa
 {

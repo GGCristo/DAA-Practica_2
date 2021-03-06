@@ -2,10 +2,8 @@
 
 #include <string.h>
 
-#include "cinta_entrada.hpp" // Singleton
-#include "cinta_salida.hpp" // Singleton
-// #include "contador_de_programa.hpp" // Singleton
-// #include "memoria.hpp" // Singleton
+#include "cinta_entrada.hpp"
+#include "cinta_salida.hpp"
 #include "programa.hpp"
 
 class Ram
@@ -14,7 +12,6 @@ class Ram
     Ram(){};
     explicit Ram(char**);
     void ejecutar();
-    bool isHalt();
   private:
     CintaEntrada cintaEntrada_;
     CintaSalida cintaSalida_;

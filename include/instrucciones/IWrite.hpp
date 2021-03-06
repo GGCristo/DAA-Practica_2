@@ -1,6 +1,7 @@
 #pragma once
 #include "../instruccion_interfaz.hpp"
 #include "../cinta_salida.hpp"
+#include "../ram.hpp"
 class IWrite: public Instruccion_Interfaz
 {
   public:
@@ -10,4 +11,5 @@ class IWrite: public Instruccion_Interfaz
     int operandoI_;
     int tipoAcceso_;
     CintaSalida* cinta_salida_;
+    Ram ramita;
 };
