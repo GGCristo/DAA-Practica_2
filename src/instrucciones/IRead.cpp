@@ -5,7 +5,7 @@ IRead::IRead(std::string& opcode, std::string& operando, CintaEntrada& cinta_ent
   tipoAcceso_ = isIndirecto(operandoI_);
 }
 
-int IRead::ejecutar(Memoria& memoria, bool debug)
+int IRead::ejecutar(Memoria& memoria)
 {
   if (tipoAcceso_ == Indirecto)
   {

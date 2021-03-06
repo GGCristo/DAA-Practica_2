@@ -6,7 +6,7 @@ class IWrite: public Instruccion_Interfaz
 {
   public:
     IWrite(std::string&, std::string&, CintaSalida& ram);
-    int ejecutar(Memoria&, bool) override;
+    int ejecutar(Memoria&) override;
   private:
     int operandoI_;
     int tipoAcceso_;

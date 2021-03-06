@@ -5,6 +5,6 @@ class IHalt: public Instruccion_Interfaz
 {
   public:
     IHalt(const std::string&);
-    int ejecutar(Memoria&, bool) override;
+    int ejecutar(Memoria&) override;
   private:
 };

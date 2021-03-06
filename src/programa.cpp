@@ -122,7 +122,7 @@ const Instruccion_Interfaz& Programa::operator [](int index) const
   return *programa_[index];
 }
 
-int Programa::ejecutar(Memoria& memoria, bool debug)
+int Programa::ejecutar(Memoria& memoria)
 {
   try
   {
@@ -130,7 +130,7 @@ int Programa::ejecutar(Memoria& memoria, bool debug)
     {
       throw Halt("Se ha llegado al final del programa sin invocar al Halt\n");
     }
-    return programa_[pc_.acceso()] -> ejecutar(memoria, debug);
+    return programa_[pc_.acceso()] -> ejecutar(memoria);
   }
   catch(Halt &e)
   {

@@ -7,7 +7,7 @@ Instruccion_Interfaz(opcode, operando)
   set_etiquetas_ = &set_etiquetas;
 }
 
-int IJump::ejecutar(Memoria&, bool debug)
+int IJump::ejecutar(Memoria&)
 {
   pc_ -> jump(set_etiquetas_ -> buscar(operando_));
   return 0;

@@ -5,7 +5,7 @@ IStore::IStore(std::string& opcode, std::string& operando): Instruccion_Interfaz
   tipoAcceso_ = isIndirecto(operandoI_);
 }
 
-int IStore::ejecutar(Memoria& memoria, bool debug)
+int IStore::ejecutar(Memoria& memoria)
 {
   if (tipoAcceso_ == Directo)
   {

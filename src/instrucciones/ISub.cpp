@@ -5,7 +5,7 @@ ISub::ISub(std::string& opcode, std::string& operando): Instruccion_Interfaz(opc
   tipoAcceso_ = isInmediatoOIndirecto(operandoI_);
 }
 
-int ISub::ejecutar(Memoria& memoria, bool debug)
+int ISub::ejecutar(Memoria& memoria)
 {
   if (tipoAcceso_ == Inmediato)
   {

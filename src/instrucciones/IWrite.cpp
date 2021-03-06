@@ -5,7 +5,7 @@ IWrite::IWrite(std::string& opcode, std::string& operando, CintaSalida& cinta_sa
   tipoAcceso_ = isInmediatoOIndirecto(operandoI_);
 }
 
-int IWrite::ejecutar(Memoria& memoria, bool debug)
+int IWrite::ejecutar(Memoria& memoria)
 {
   if (operandoI_ == 0)
   {

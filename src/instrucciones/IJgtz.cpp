@@ -7,15 +7,11 @@ Instruccion_Interfaz(opcode, operando)
   set_etiquetas_ = &set_etiquetas;
 }
 
-int IJgtz::ejecutar(Memoria& memoria, bool debug)
+int IJgtz::ejecutar(Memoria& memoria)
 {
   if (memoria.get_acumulador() > 0)
   {
     pc_ -> jump(set_etiquetas_ -> buscar(operando_));
-  }
-  else if (debug)
-  {
-    std::cout << "[No se realiza el salto] Acumulador es: " << memoria.get_acumulador() << '\n';
   }
   return 0;
 }

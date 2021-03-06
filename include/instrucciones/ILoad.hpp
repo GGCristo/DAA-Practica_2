@@ -5,7 +5,7 @@ class ILoad: public Instruccion_Interfaz
 {
   public:
     ILoad(std::string&, std::string&);
-    int ejecutar(Memoria&, bool) override;
+    int ejecutar(Memoria&) override;
   private:
     int operandoI_;
     int tipoAcceso_;

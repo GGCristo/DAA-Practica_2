@@ -5,7 +5,7 @@ IAdd::IAdd(std::string& opcode, std::string& operando): Instruccion_Interfaz(opc
   tipoAcceso_ = isInmediatoOIndirecto(operandoI_);
 }
 
-int IAdd::ejecutar(Memoria& memoria, bool debug)
+int IAdd::ejecutar(Memoria& memoria)
 {
   if (tipoAcceso_ == Inmediato)
   {

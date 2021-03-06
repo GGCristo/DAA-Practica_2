@@ -5,7 +5,7 @@ ILoad::ILoad(std::string& opcode, std::string& operando): Instruccion_Interfaz(o
   tipoAcceso_ = isInmediatoOIndirecto(operandoI_);
 }
 
-int ILoad::ejecutar(Memoria& memoria, bool debug)
+int ILoad::ejecutar(Memoria& memoria)
 {
   if (tipoAcceso_ == Inmediato)
   {

@@ -19,7 +19,7 @@ class Programa
     Programa(const Programa&);
     explicit Programa(char *, CintaEntrada&, CintaSalida&);
     void insertar_instruccion(std::string, std::string, CintaEntrada&, CintaSalida&);
-    int ejecutar(Memoria&, bool debug = 0);
+    int ejecutar(Memoria&);
     void peek();
     const Instruccion_Interfaz& operator [](int);
     const Instruccion_Interfaz& operator [](int) const;

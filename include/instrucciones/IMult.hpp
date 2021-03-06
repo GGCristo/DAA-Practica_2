@@ -5,7 +5,7 @@ class IMult: public Instruccion_Interfaz
 {
   public:
     IMult(std::string&, std::string&);
-    int ejecutar(Memoria&, bool) override;
+    int ejecutar(Memoria&) override;
   private:
     int operandoI_;
     int tipoAcceso_;

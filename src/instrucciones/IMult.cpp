@@ -5,7 +5,7 @@ IMult::IMult(std::string& opcode, std::string& operando): Instruccion_Interfaz(o
   tipoAcceso_ = isInmediatoOIndirecto(operandoI_);
 }
 
-int IMult::ejecutar(Memoria& memoria, bool debug)
+int IMult::ejecutar(Memoria& memoria)
 {
   if (tipoAcceso_ == Inmediato)
   {

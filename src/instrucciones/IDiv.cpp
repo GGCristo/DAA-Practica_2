@@ -5,7 +5,7 @@ IDiv::IDiv(std::string& opcode, std::string& operando): Instruccion_Interfaz(opc
   tipoAcceso_ = isInmediatoOIndirecto(operandoI_);
 }
 
-int IDiv::ejecutar(Memoria& memoria, bool debug)
+int IDiv::ejecutar(Memoria& memoria)
 {
   int denominador;
   if (tipoAcceso_ == Inmediato)

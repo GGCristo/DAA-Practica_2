@@ -6,7 +6,7 @@ class IRead: public Instruccion_Interfaz
 {
   public:
     IRead(std::string&, std::string&, CintaEntrada&);
-    int ejecutar(Memoria&, bool) override;
+    int ejecutar(Memoria&) override;
   private:
     int operandoI_;
     int tipoAcceso_;
