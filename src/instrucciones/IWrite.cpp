@@ -11,8 +11,6 @@ int IWrite::ejecutar(Memoria& memoria, bool debug)
   {
     throw Halt("No se puede acceder al acumulador directamente con \"WRITE\"\n");
   }
-  if (debug)
-    std::cout << opcode_ << operando_ << '\n';
   if (tipoAcceso_ == Inmediato)
   {
     cinta_salida_ -> write(operandoI_);

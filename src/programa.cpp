@@ -104,7 +104,7 @@ void Programa::insertar_instruccion(std::string opcode, std::string operando,
   }
   else if (opcode == "halt" || opcode == "HALT")
   {
-    programa_.push_back(std::make_shared<IHalt>());
+    programa_.push_back(std::make_shared<IHalt>(opcode));
   }
   else
   {
@@ -137,4 +137,9 @@ int Programa::ejecutar(Memoria& memoria, bool debug)
     e.acoplar("|| Linea " + std::to_string(pc_.peek()) + '\n');
     throw;
   }
+}
+
+void Programa::peek()
+{
+  programa_[pc_.peek()] -> mostrar();
 }

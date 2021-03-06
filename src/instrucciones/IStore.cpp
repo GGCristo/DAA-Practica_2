@@ -7,8 +7,6 @@ IStore::IStore(std::string& opcode, std::string& operando): Instruccion_Interfaz
 
 int IStore::ejecutar(Memoria& memoria, bool debug)
 {
-  if (debug)
-    std::cout << opcode_ << operando_ << '\n';
   if (tipoAcceso_ == Directo)
   {
     memoria.escribir(operandoI_, memoria.get_acumulador());

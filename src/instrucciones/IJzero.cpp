@@ -9,8 +9,6 @@ Instruccion_Interfaz(opcode, operando)
 
 int IJzero::ejecutar(Memoria& memoria, bool debug)
 {
-  if (debug)
-    std::cout << opcode_ << operando_ << '\n';
   if (memoria.get_acumulador() == 0)
   {
     pc_ -> jump(set_etiquetas_ -> buscar(operando_));

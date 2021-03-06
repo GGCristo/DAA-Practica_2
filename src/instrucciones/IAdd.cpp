@@ -7,8 +7,6 @@ IAdd::IAdd(std::string& opcode, std::string& operando): Instruccion_Interfaz(opc
 
 int IAdd::ejecutar(Memoria& memoria, bool debug)
 {
-  if (debug)
-    std::cout << opcode_ << operando_ << '\n';
   if (tipoAcceso_ == Inmediato)
   {
     memoria.escribir(0, memoria.get_acumulador() + operandoI_);

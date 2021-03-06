@@ -23,7 +23,7 @@ class Ram
     void cargarCinta(char*);
     void volcarCinta(char*);
     void inner_ejecutar();
-    bool menu(Memoria&, CintaEntrada&, CintaSalida&, bool&);
+    bool menu(bool&);
 };
 
 void ayuda();

@@ -8,7 +8,8 @@ int main(int argc, char** argv)
   {
     if (argc != 5)
     {
-      throw "Se necesita cuatro valores\n";  // ayuda();
+      ayuda();
+      throw "Se necesita cuatro valores\n";
     }
     Ram ram(argv);
     ram.ejecutar();

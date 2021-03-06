@@ -65,7 +65,7 @@ void Ram::inner_ejecutar()
   {
     while (!halt_)
     {
-      if (!menu(memoria_, cintaEntrada_, cintaSalida_, ejecutar))
+      if (!menu(ejecutar))
       {
         break;
       }
@@ -81,7 +81,7 @@ void Ram::inner_ejecutar()
   }
 }
 
-bool Ram::menu(Memoria& memoria, CintaEntrada& cintaEntrada, CintaSalida& cintaSalida, bool& ejecutar)
+bool Ram::menu(bool& ejecutar)
 {
   char opcion;
   do
@@ -91,24 +91,28 @@ bool Ram::menu(Memoria& memoria, CintaEntrada& cintaEntrada, CintaSalida& cintaS
     switch(opcion)
     {
       case 't':
+        programa_.peek();
         break;
       case 'e':
         ejecutar = true;
         break;
       case 'r':
-        memoria.mostrar();
+        memoria_.mostrar();
         break;
       case 'i':
-        cintaEntrada.mostrar();
+        cintaEntrada_.mostrar();
         break;
       case 'o':
-        cintaSalida.mostrar();
+        cintaSalida_.mostrar();
         break;
       case 'x':
         std::cout << "Cerrando programa\n";
         break;
       case 'h':
         ayuda();
+        break;
+      case 's':
+        programa_.peek();
         break;
       default:
         std::cout << "Esa opción no esta contemplada\n";

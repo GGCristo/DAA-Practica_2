@@ -7,8 +7,6 @@ ILoad::ILoad(std::string& opcode, std::string& operando): Instruccion_Interfaz(o
 
 int ILoad::ejecutar(Memoria& memoria, bool debug)
 {
-  if (debug)
-    std::cout << opcode_ << operando_ << '\n';
   if (tipoAcceso_ == Inmediato)
   {
     memoria.escribir(0, operandoI_);

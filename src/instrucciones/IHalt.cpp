@@ -1,7 +1,9 @@
 #include "../../include/instrucciones/IHalt.hpp"
 
-IHalt::IHalt()
-{}
+IHalt::IHalt(const std::string& opcode)
+{
+  opcode_ = opcode;
+}
 
 int IHalt::ejecutar(Memoria&, bool)
 {

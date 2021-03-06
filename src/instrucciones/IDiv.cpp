@@ -7,8 +7,6 @@ IDiv::IDiv(std::string& opcode, std::string& operando): Instruccion_Interfaz(opc
 
 int IDiv::ejecutar(Memoria& memoria, bool debug)
 {
-  if (debug)
-    std::cout << opcode_ << operando_ << '\n';
   int denominador;
   if (tipoAcceso_ == Inmediato)
   {

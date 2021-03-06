@@ -7,8 +7,6 @@ IRead::IRead(std::string& opcode, std::string& operando, CintaEntrada& cinta_ent
 
 int IRead::ejecutar(Memoria& memoria, bool debug)
 {
-  if (debug)
-    std::cout << opcode_ << operando_ << '\n';
   if (tipoAcceso_ == Indirecto)
   {
     memoria.escribir((memoria)[operandoI_], cinta_entrada_ -> read());

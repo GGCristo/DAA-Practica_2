@@ -31,6 +31,12 @@ Instruccion_Interfaz::Instruccion_Interfaz(const std::string& opcode, const std:
 //   }
 // }
 
+std::ostream& Instruccion_Interfaz::mostrar (std::ostream& os)
+{
+  os << opcode_ << ' '<< operando_ << '\n';
+  return os;
+}
+
 int Instruccion_Interfaz::isIndirecto(int& operandoI)
 {
   bool posible_indirecto = false;
