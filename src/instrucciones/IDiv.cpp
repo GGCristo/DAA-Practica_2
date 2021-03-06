@@ -1,11 +1,13 @@
 #include "../../include/instrucciones/IDiv.hpp"
 
-IDiv::IDiv(std::string& opcode, std::string& operando): Instruccion_Interfaz(opcode, operando)
+IDiv::IDiv(std::string& opcode, std::string& operando, Memoria& memoria):
+Instruccion_Interfaz(opcode, operando)
 {
   tipoAcceso_ = isInmediatoOIndirecto(operandoI_);
+  memoria_ = &memoria;
 }
 
-int IDiv::ejecutar(Memoria& memoria)
+int IDiv::ejecutar()
 {
   int denominador;
   if (tipoAcceso_ == Inmediato)
@@ -14,11 +16,11 @@ int IDiv::ejecutar(Memoria& memoria)
   }
   else if (tipoAcceso_ == Directo)
   {
-    denominador = memoria[operandoI_];
+    denominador = (*memoria_)[operandoI_];
   }
   else if (tipoAcceso_ == Indirecto)
   {
-    denominador = memoria[memoria[operandoI_]];
+    denominador = (*memoria_)[(*memoria_)[operandoI_]];
   }
   else
   {
@@ -28,6 +30,6 @@ int IDiv::ejecutar(Memoria& memoria)
   {
     throw Halt("Se ha intentado dividir entre cero\n");
   }
-  memoria.escribir(0, memoria.get_acumulador() / denominador);
+  (*memoria_).escribir(0, (*memoria_).get_acumulador() / denominador);
   return 0;
 }

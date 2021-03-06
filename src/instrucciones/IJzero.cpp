@@ -1,15 +1,16 @@
 #include "../../include/instrucciones/IJzero.hpp"
 
-IJzero::IJzero(std::string& opcode, std::string& operando, Pc& pc, SetEtiquetas& set_etiquetas):
+IJzero::IJzero(std::string& opcode, std::string& operando, Memoria& memoria, Pc& pc, SetEtiquetas& set_etiquetas):
 Instruccion_Interfaz(opcode, operando)
 {
   pc_ = &pc;
   set_etiquetas_ = &set_etiquetas;
+  memoria_ = &memoria;
 }
 
-int IJzero::ejecutar(Memoria& memoria)
+int IJzero::ejecutar()
 {
-  if (memoria.get_acumulador() == 0)
+  if ((*memoria_).get_acumulador() == 0)
   {
     pc_ -> jump(set_etiquetas_ -> buscar(operando_));
   }

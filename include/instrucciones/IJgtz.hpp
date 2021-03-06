@@ -7,9 +7,10 @@
 class IJgtz: public Instruccion_Interfaz
 {
   public:
-    IJgtz(std::string&, std::string&, Pc&, SetEtiquetas&);
-    int ejecutar(Memoria&) override;
+    IJgtz(std::string&, std::string&, Memoria&, Pc&, SetEtiquetas&);
+    int ejecutar() override;
   private:
     Pc* pc_;
     SetEtiquetas* set_etiquetas_;
+    Memoria* memoria_;
 };

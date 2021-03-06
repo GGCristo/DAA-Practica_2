@@ -1,19 +1,21 @@
 #include "../../include/instrucciones/IRead.hpp"
 
-IRead::IRead(std::string& opcode, std::string& operando, CintaEntrada& cinta_entrada): Instruccion_Interfaz(opcode, operando), cinta_entrada_(&cinta_entrada)
+IRead::IRead(std::string& opcode, std::string& operando, Memoria& memoria, CintaEntrada& cinta_entrada):
+Instruccion_Interfaz(opcode, operando), cinta_entrada_(&cinta_entrada)
 {
   tipoAcceso_ = isIndirecto(operandoI_);
+  memoria_ = &memoria;
 }
 
-int IRead::ejecutar(Memoria& memoria)
+int IRead::ejecutar()
 {
   if (tipoAcceso_ == Indirecto)
   {
-    memoria.escribir((memoria)[operandoI_], cinta_entrada_ -> read());
+    (*memoria_).escribir(((*memoria_))[operandoI_], cinta_entrada_ -> read());
   }
   else if (tipoAcceso_ == Directo)
   {
-    memoria.escribir(operandoI_, cinta_entrada_-> read());
+    (*memoria_).escribir(operandoI_, cinta_entrada_-> read());
   }
   else
   {

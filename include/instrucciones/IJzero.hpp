@@ -7,9 +7,10 @@
 class IJzero: public Instruccion_Interfaz
 {
   public:
-    IJzero(std::string&, std::string&, Pc&, SetEtiquetas&);
-    int ejecutar(Memoria&) override;
+    IJzero(std::string&, std::string&, Memoria&, Pc&, SetEtiquetas&);
+    int ejecutar() override;
   private:
    Pc* pc_;
    SetEtiquetas* set_etiquetas_;
+   Memoria* memoria_;
 };

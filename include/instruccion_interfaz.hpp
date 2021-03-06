@@ -13,7 +13,7 @@ class Instruccion_Interfaz
     Instruccion_Interfaz() = default;
     Instruccion_Interfaz(const std::string&, const std::string&);
     virtual ~Instruccion_Interfaz() = default;
-    virtual int ejecutar(Memoria&) = 0;
+    virtual int ejecutar() = 0;
     std::ostream& mostrar(std::ostream& os = std::cout);
   protected:
     std::string opcode_;

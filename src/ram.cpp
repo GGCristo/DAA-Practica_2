@@ -1,6 +1,6 @@
 #include "../include/ram.hpp"
 
-Ram::Ram(char** argv) : programa_(argv[1], cintaEntrada_, cintaSalida_) // Cargar Programa
+Ram::Ram(char** argv) : programa_(argv[1], memoria_, cintaEntrada_, cintaSalida_) // Cargar Programa
 {
   halt_ = false;
   argumentos_ = argv;

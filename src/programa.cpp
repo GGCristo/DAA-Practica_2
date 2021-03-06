@@ -4,7 +4,7 @@
 Programa::Programa()
 {}
 
-Programa::Programa(char* fichero, CintaEntrada& cintaEntrada, CintaSalida& cintaSalida)
+Programa::Programa(char* fichero, Memoria& memoria, CintaEntrada& cintaEntrada, CintaSalida& cintaSalida)
 {
   std::fstream f_programaRAM;
   f_programaRAM.open(fichero, std::ios::in);
@@ -31,7 +31,7 @@ Programa::Programa(char* fichero, CintaEntrada& cintaEntrada, CintaSalida& cinta
             throw "Solo puede haber una etiqueta por línea\n";
           }
           set_etiquetas_.insertar(palabra1, programa_.size());
-          insertar_instruccion(palabra2, palabra3, cintaEntrada, cintaSalida);
+          insertar_instruccion(palabra2, palabra3, memoria, cintaEntrada, cintaSalida);
         }
         // La línea no tiene etiqueta
         else
@@ -41,7 +41,7 @@ Programa::Programa(char* fichero, CintaEntrada& cintaEntrada, CintaSalida& cinta
           {
             throw "La etiqueta tiene que ser el primer valor de la línea\n";
           }
-          insertar_instruccion(palabra1, palabra2, cintaEntrada, cintaSalida);
+          insertar_instruccion(palabra1, palabra2, memoria, cintaEntrada, cintaSalida);
         }
         // Comentarios al final
         if (linea_stream >> comentario)
@@ -55,40 +55,41 @@ Programa::Programa(char* fichero, CintaEntrada& cintaEntrada, CintaSalida& cinta
   f_programaRAM.close();
 }
 
-void Programa::insertar_instruccion(std::string opcode, std::string operando,
-    CintaEntrada& cintaEntrada, CintaSalida& cintaSalida)
+void Programa::insertar_instruccion(std::string& opcode, std::string& operando,
+                                    Memoria& memoria, CintaEntrada& cintaEntrada,
+                                    CintaSalida& cintaSalida)
 {
   if (opcode == "load" || opcode == "LOAD")
   {
-    programa_.push_back(std::make_shared<ILoad>(opcode, operando));
+    programa_.push_back(std::make_shared<ILoad>(opcode, operando, memoria));
   }
   else if (opcode == "store" || opcode == "STORE")
   {
-    programa_.push_back(std::make_shared<IStore>(opcode, operando));
+    programa_.push_back(std::make_shared<IStore>(opcode, operando, memoria));
   }
   else if (opcode == "add" || opcode == "ADD")
   {
-    programa_.push_back(std::make_shared<IAdd>(opcode, operando));
+    programa_.push_back(std::make_shared<IAdd>(opcode, operando, memoria));
   }
   else if (opcode == "sub" || opcode == "SUB")
   {
-    programa_.push_back(std::make_shared<ISub>(opcode, operando));
+    programa_.push_back(std::make_shared<ISub>(opcode, operando, memoria));
   }
   else if (opcode == "mult" || opcode == "MULT")
   {
-    programa_.push_back(std::make_shared<IMult>(opcode, operando));
+    programa_.push_back(std::make_shared<IMult>(opcode, operando, memoria));
   }
   else if(opcode == "div" || opcode == "DIV")
   {
-    programa_.push_back(std::make_shared<IDiv>(opcode, operando));
+    programa_.push_back(std::make_shared<IDiv>(opcode, operando, memoria));
   }
   else if (opcode == "read" || opcode == "READ")
   {
-    programa_.push_back(std::make_shared<IRead>(opcode, operando, cintaEntrada));
+    programa_.push_back(std::make_shared<IRead>(opcode, operando, memoria, cintaEntrada));
   }
   else if (opcode == "write" || opcode == "WRITE")
   {
-    programa_.push_back(std::make_shared<IWrite>(opcode, operando, cintaSalida));
+    programa_.push_back(std::make_shared<IWrite>(opcode, operando, memoria, cintaSalida));
   }
   else if (opcode == "jump" || opcode == "JUMP")
   {
@@ -96,11 +97,11 @@ void Programa::insertar_instruccion(std::string opcode, std::string operando,
   }
   else if (opcode == "jgtz" || opcode == "JGTZ")
   {
-    programa_.push_back(std::make_shared<IJgtz>(opcode, operando, pc_, set_etiquetas_));
+    programa_.push_back(std::make_shared<IJgtz>(opcode, operando, memoria, pc_, set_etiquetas_));
   }
   else if (opcode == "jzero" || opcode == "JZERO")
   {
-    programa_.push_back(std::make_shared<IJzero>(opcode, operando, pc_ , set_etiquetas_));
+    programa_.push_back(std::make_shared<IJzero>(opcode, operando, memoria, pc_ , set_etiquetas_));
   }
   else if (opcode == "halt" || opcode == "HALT")
   {
@@ -130,7 +131,7 @@ int Programa::ejecutar(Memoria& memoria)
     {
       throw Halt("Se ha llegado al final del programa sin invocar al Halt\n");
     }
-    return programa_[pc_.acceso()] -> ejecutar(memoria);
+    return programa_[pc_.acceso()] -> ejecutar();
   }
   catch(Halt &e)
   {

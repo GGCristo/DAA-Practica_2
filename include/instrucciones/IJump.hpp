@@ -8,7 +8,7 @@ class IJump: public Instruccion_Interfaz
 {
   public:
     IJump(std::string&, std::string&, Pc&, SetEtiquetas&);
-    int ejecutar(Memoria&) override;
+    int ejecutar() override;
   private:
     Pc* pc_;
     SetEtiquetas* set_etiquetas_;

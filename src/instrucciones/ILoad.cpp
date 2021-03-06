@@ -1,23 +1,25 @@
 #include "../../include/instrucciones/ILoad.hpp"
 
-ILoad::ILoad(std::string& opcode, std::string& operando): Instruccion_Interfaz(opcode, operando)
+ILoad::ILoad(std::string& opcode, std::string& operando, Memoria& memoria):
+Instruccion_Interfaz(opcode, operando)
 {
   tipoAcceso_ = isInmediatoOIndirecto(operandoI_);
+  memoria_ = &memoria;
 }
 
-int ILoad::ejecutar(Memoria& memoria)
+int ILoad::ejecutar()
 {
   if (tipoAcceso_ == Inmediato)
   {
-    memoria.escribir(0, operandoI_);
+    (*memoria_).escribir(0, operandoI_);
   }
   else if (tipoAcceso_ == Directo)
   {
-    memoria.escribir(0, (memoria)[operandoI_]);
+    (*memoria_).escribir(0, ((*memoria_))[operandoI_]);
   }
   else if (tipoAcceso_ == Indirecto)
   {
-    memoria.escribir(0, (memoria)[(memoria)[operandoI_]]);
+    (*memoria_).escribir(0, ((*memoria_))[((*memoria_))[operandoI_]]);
   }
   else
   {
