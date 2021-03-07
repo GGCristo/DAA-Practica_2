@@ -57,6 +57,8 @@ void Ram::ejecutar()
   catch(const Halt &e)
   {
     std::cerr << "Error en tiempo de ejecución: " << e.what();
+    volcarCinta(argumentos_[3]);
+    throw;
   }
   volcarCinta(argumentos_[3]);
 }

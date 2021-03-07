@@ -9,16 +9,16 @@ Instruccion_Interfaz(opcode, operando), cinta_salida_(&cinta_salida)
 
 int IWrite::ejecutar()
 {
-  if (operandoI_ == 0)
-  {
-    throw Halt("No se puede acceder al acumulador directamente con \"WRITE\"\n");
-  }
   if (tipoAcceso_ == Inmediato)
   {
     cinta_salida_ -> write(operandoI_);
   }
   else if (tipoAcceso_ == Directo)
   {
+    if (operandoI_ == 0)
+    {
+      throw Halt("No se puede acceder al acumulador directamente con \"WRITE\"\n");
+    }
     cinta_salida_ -> write(((*memoria_))[operandoI_]);
   }
   else if (tipoAcceso_ == Indirecto)

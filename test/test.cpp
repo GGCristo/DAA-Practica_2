@@ -40,12 +40,24 @@ TEST_CASE("TEST 2")
   comprobar(argumentos[3], expected_v);
 
   // Numeros distintos TODO Fallo no me deja write =0
-  // input_v = {"1", "1", "2", "1", "0"};
-  // expected_v = {"0"};
-  // escribir_fichero_in(argumentos[2], input_v);
-  // Ram ram2(argumentos);
-  // ram2.ejecutar();
-  // comprobar(argumentos[3], expected_v);
+  input_v = {"1", "1", "2", "1", "0"};
+  expected_v = {"0"};
+  escribir_fichero_in(argumentos[2], input_v);
+  Ram ram2(argumentos);
+  ram2.ejecutar();
+  comprobar(argumentos[3], expected_v);
+}
+
+TEST_CASE("TEST 3")
+{
+  char* argumentos[5];
+  std::string test = "test/test3.ram";
+  argumentos[0] = &program[0]; argumentos[1] = &test[0]; argumentos[2] = &input[0];
+  argumentos[3] = &output[0]; argumentos[4] = &debug[0];
+
+  std::vector<std::string> input_v = {"1", "2", "3", "2", "0"};
+  escribir_fichero_in(argumentos[2], input_v);
+  CHECK_THROWS(Ram (argumentos));
 }
 
 TEST_CASE("TEST 4")
