@@ -1,5 +1,6 @@
 #pragma once
 #include "../instruccion_interfaz.hpp"
+#include "../memoria.hpp"
 
 class IAdd: public Instruccion_Interfaz
 {

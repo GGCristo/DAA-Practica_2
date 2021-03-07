@@ -17,7 +17,7 @@ class Programa
   public:
     Programa();
     Programa(const Programa&);
-    explicit Programa(char *, Memoria&, CintaEntrada&, CintaSalida&);
+    explicit Programa(const char *, Memoria&, CintaEntrada&, CintaSalida&);
     void insertar_instruccion(std::string&, std::string&, Memoria&, CintaEntrada&, CintaSalida&);
     int ejecutar(Memoria&);
     void peek();

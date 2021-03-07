@@ -5,3 +5,5 @@ build/
 bin/
 Debug/
 /.vimspector.json
+/test/doctest.h
+/bin/main

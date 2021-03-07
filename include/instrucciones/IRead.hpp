@@ -1,5 +1,6 @@
 #pragma once
 #include "../instruccion_interfaz.hpp"
+#include "../memoria.hpp"
 #include "../cinta_entrada.hpp"
 
 class IRead: public Instruccion_Interfaz

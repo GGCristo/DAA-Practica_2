@@ -11,7 +11,7 @@ class CintaSalida
     std::ostream& mostrar(std::ostream& os = std::cout);
   private:
     std::vector<int> cintaSalida_;
-    int cabeza_ = 0;
+    int cabeza_;
     void write(int);
     friend class IWrite;
 };

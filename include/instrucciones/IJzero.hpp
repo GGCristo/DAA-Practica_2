@@ -1,6 +1,6 @@
 #pragma once
 #include "../instruccion_interfaz.hpp"
-
+#include "../memoria.hpp"
 #include "../contador_de_programa.hpp"
 #include "../set_etiquetas.hpp"
 

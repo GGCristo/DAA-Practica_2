@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 
-#include "memoria.hpp"
 #include "halt.hpp"
 
 enum enum_acceso {Indirecto, Inmediato, Directo};

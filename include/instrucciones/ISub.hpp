@@ -1,5 +1,6 @@
 #pragma once
 #include "../instruccion_interfaz.hpp"
+#include "../memoria.hpp"
 
 class ISub: public Instruccion_Interfaz
 {

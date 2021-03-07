@@ -1,6 +1,7 @@
 #include "../include/instruccion_interfaz.hpp"
 
-Instruccion_Interfaz::Instruccion_Interfaz(const std::string& opcode, const std::string& operando): opcode_(opcode), operando_(operando)
+Instruccion_Interfaz::Instruccion_Interfaz(const std::string& opcode, const std::string& operando):
+opcode_(opcode), operando_(operando)
 {
 }
 

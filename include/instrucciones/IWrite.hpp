@@ -1,5 +1,6 @@
 #pragma once
 #include "../instruccion_interfaz.hpp"
+#include "../memoria.hpp"
 #include "../cinta_salida.hpp"
 
 class IWrite: public Instruccion_Interfaz

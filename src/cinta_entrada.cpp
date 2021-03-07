@@ -9,11 +9,6 @@ CintaEntrada::~CintaEntrada()
 {
 }
 
-int CintaEntrada::operator [] (int posicion)
-{
-  return cintaEntrada_[posicion];
-}
-
 size_t CintaEntrada::get_sz()
 {
   return cintaEntrada_.size();
@@ -30,16 +25,16 @@ int CintaEntrada::read()
 
 void CintaEntrada::set_cinta_entrada(const std::vector<int>& cinta_entrada)
 {
-  static int ROM = 1;
-  if (ROM)
-  {
+  // static int ROM = 1;
+  // if (ROM)
+  // {
     cintaEntrada_ = cinta_entrada;
-    ROM = 0;
-  }
-  else
-  {
-    throw "No se puede sobrescribir la cinta de entrada\n";
-  }
+    // ROM = 0;
+  // }
+  // else
+  // {
+    // throw "No se puede sobrescribir la cinta de entrada\n";
+  // }
 }
 
 std::ostream& CintaEntrada::mostrar(std::ostream& os)

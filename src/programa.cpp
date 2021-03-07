@@ -4,7 +4,7 @@
 Programa::Programa()
 {}
 
-Programa::Programa(char* fichero, Memoria& memoria, CintaEntrada& cintaEntrada, CintaSalida& cintaSalida)
+Programa::Programa(const char* fichero, Memoria& memoria, CintaEntrada& cintaEntrada, CintaSalida& cintaSalida)
 {
   std::fstream f_programaRAM;
   f_programaRAM.open(fichero, std::ios::in);
