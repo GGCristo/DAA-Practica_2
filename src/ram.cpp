@@ -1,50 +1,19 @@
 #include "../include/ram.hpp"
 
-Ram::Ram(char** argv) : programa_(argv[1], memoria_, cintaEntrada_, cintaSalida_) // Cargar Programa
+Ram::Ram(char** argv) :
+  cintaEntrada_(argv[2]), // Cargar Cinta
+  programa_(argv[1], memoria_, cintaEntrada_, cintaSalida_) // Cargar Programa
 {
   halt_ = false;
   argumentos_ = argv;
   debug_ = std::stoi(argumentos_[4]);
-  cargarCinta(argumentos_[2]);
-}
-
-void Ram::cargarCinta(char* fichero)
-{
-  std::fstream f_cinta_input;
-  f_cinta_input.open(fichero, std::ios::in);
-  if (!f_cinta_input)
-  {
-    throw "No se ha podido leer la cinta\n";
-  }
-  std::string palabra;
-  std::vector<int> cinta_aux;
-  while(f_cinta_input >> palabra)
-  {
-    cinta_aux.push_back(std::stoi(palabra));
-  }
-  cintaEntrada_.set_cinta_entrada(cinta_aux);
-  f_cinta_input.close();
 }
 
 void Ram::volcarCinta(char* fichero)
 {
   if (cintaSalida_.get_sz() > 0)
   {
-    std::cout << "Escribiendo en la cinta de Salida...\n";
-
-    std::fstream f_cinta_output;
-    f_cinta_output.open(fichero, std::ios::out);
-    if(!f_cinta_output)
-    {
-      throw "No se ha podido escribir en la cinta de salida\n";
-    }
-
-    for (size_t i = 0; i < cintaSalida_.get_sz(); i++)
-    {
-      f_cinta_output << cintaSalida_[i] << ' ';
-    }
-
-    f_cinta_output.close();
+    cintaSalida_.volcar(fichero);
   }
 }
 

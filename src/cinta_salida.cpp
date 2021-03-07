@@ -11,9 +11,24 @@ void CintaSalida::write(int valor)
   cabeza_++;
 }
 
-int CintaSalida::operator [] (int posicion)
+void CintaSalida::volcar(char* fichero)
 {
-  return cintaSalida_[posicion];
+  std::cout << "Escribiendo en la cinta de Salida...\n";
+
+  std::fstream f_cinta_output;
+  f_cinta_output.open(fichero, std::ios::out);
+  if(!f_cinta_output)
+  {
+    throw "No se ha podido escribir en la cinta de salida\n";
+  }
+
+  for (size_t i = 0; i < get_sz(); i++)
+  {
+    f_cinta_output << cintaSalida_[i] << ' ';
+  }
+
+  f_cinta_output.close();
+
 }
 
 size_t CintaSalida::get_sz()
@@ -27,5 +42,5 @@ std::ostream& CintaSalida::mostrar(std::ostream& os)
   {
     std::cout << cintaSalida_[i] << '\n';
   }
-    return os;
+  return os;
 }

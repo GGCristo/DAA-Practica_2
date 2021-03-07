@@ -20,7 +20,6 @@ class Ram
     bool halt_;
     bool debug_;
     char** argumentos_;
-    void cargarCinta(char*);
     void volcarCinta(char*);
     void inner_ejecutar();
     bool menu(bool&);

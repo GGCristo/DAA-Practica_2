@@ -1,13 +1,15 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 #include "halt.hpp"
 
 class CintaEntrada
 {
   public:
-    CintaEntrada();
+    CintaEntrada() = default;
+    explicit CintaEntrada(char*);
     ~CintaEntrada();
     size_t get_sz();
     void set_cinta_entrada(const std::vector<int>&);

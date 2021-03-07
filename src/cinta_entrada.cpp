@@ -1,8 +1,22 @@
 #include "../include/cinta_entrada.hpp"
 
-CintaEntrada::CintaEntrada()
+CintaEntrada::CintaEntrada(char* fichero)
 {
   cabeza_ = 0;
+  std::fstream f_cinta_input;
+  f_cinta_input.open(fichero, std::ios::in);
+  if (!f_cinta_input)
+  {
+    throw "No se ha podido leer la cinta\n";
+  }
+  std::string palabra;
+  std::vector<int> cinta_aux;
+  while(f_cinta_input >> palabra)
+  {
+    cinta_aux.push_back(std::stoi(palabra));
+  }
+  set_cinta_entrada(cinta_aux);
+  f_cinta_input.close();
 }
 
 CintaEntrada::~CintaEntrada()
