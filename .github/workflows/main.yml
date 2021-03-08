@@ -7,6 +7,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: mkdir -p build && cd build && cmake .. -DENABLE_TESTS=ON
-      - run: pwd
-      - run: make
+      - run: cd build && make
       - run: ./bin/my_test
