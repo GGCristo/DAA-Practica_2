@@ -9,6 +9,10 @@ void Memoria::escribir(unsigned long posicion, int valor)
 
 int Memoria::get_acumulador()
 {
+  if (memoria_.size() < 1)
+  {
+    memoria_.resize(1);
+  }
   return memoria_[0];
 }
 

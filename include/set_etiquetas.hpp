@@ -1,5 +1,7 @@
 #pragma once
 #include <unordered_map>
+
+#include "halt.hpp"
 class SetEtiquetas
 {
   public:

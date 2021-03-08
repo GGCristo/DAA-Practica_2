@@ -5,6 +5,10 @@ SetEtiquetas::SetEtiquetas()
 
 void SetEtiquetas::insertar(std::string etiqueta, int direccion)
 {
+  if (set_etiquetas_.find(etiqueta) != set_etiquetas_.end())
+  {
+    throw Halt("La etiqueta " + etiqueta + " ya ha sido definida\n");
+  }
   set_etiquetas_.insert(std::make_pair(etiqueta, direccion));
 }
 

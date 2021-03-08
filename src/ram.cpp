@@ -46,14 +46,14 @@ void Ram::inner_ejecutar()
       {
         break;
       }
-      halt_ = programa_.ejecutar(memoria_);
+      halt_ = programa_.ejecutar();
     }
   }
   if (ejecutar)
   {
     while (!halt_)
     {
-      halt_ = programa_.ejecutar(memoria_);
+      halt_ = programa_.ejecutar();
     };
   }
 }

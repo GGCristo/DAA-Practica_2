@@ -129,7 +129,7 @@ int Programa::numeroEjecuciones()
   return ejecuciones_;
 }
 
-int Programa::ejecutar(Memoria& memoria)
+int Programa::ejecutar()
 {
   try
   {
