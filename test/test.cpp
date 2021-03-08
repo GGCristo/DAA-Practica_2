@@ -9,11 +9,6 @@ void escribir_fichero_in(const char*, std::vector<std::string>);
 void comprobar(const char*, std::vector<std::string>);
 
 
-TEST_CASE("TEST 0")
-{
-  CHECK(0 == 1);
-}
-
 TEST_CASE("TEST 1")
 {
   char* argumentos[5];
