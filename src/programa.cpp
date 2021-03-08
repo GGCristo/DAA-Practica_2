@@ -6,6 +6,7 @@ Programa::Programa()
 
 Programa::Programa(const char* fichero, Memoria& memoria, CintaEntrada& cintaEntrada, CintaSalida& cintaSalida)
 {
+  ejecuciones_ = 0;
   std::fstream f_programaRAM;
   f_programaRAM.open(fichero, std::ios::in);
   if (!f_programaRAM)
@@ -123,6 +124,11 @@ const Instruccion_Interfaz& Programa::operator [](int index) const
   return *programa_[index];
 }
 
+int Programa::numeroEjecuciones()
+{
+  return ejecuciones_;
+}
+
 int Programa::ejecutar(Memoria& memoria)
 {
   try
@@ -131,6 +137,7 @@ int Programa::ejecutar(Memoria& memoria)
     {
       throw Halt("Se ha llegado al final del programa sin invocar al Halt\n");
     }
+    ejecuciones_++;
     return programa_[pc_.acceso()] -> ejecutar();
   }
   catch(Halt &e)

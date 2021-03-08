@@ -27,7 +27,10 @@ void Ram::ejecutar()
   {
     std::cerr << "Error en tiempo de ejecución: " << e.what();
     volcarCinta(argumentos_[3]);
-    throw;
+  }
+  if (!debug_)
+  {
+    std::cout << "Número de ejecuciones: " << programa_.numeroEjecuciones() << '\n';
   }
   volcarCinta(argumentos_[3]);
 }

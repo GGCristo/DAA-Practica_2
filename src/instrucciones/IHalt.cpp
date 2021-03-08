@@ -7,6 +7,6 @@ IHalt::IHalt(const std::string& opcode)
 
 int IHalt::ejecutar()
 {
-  std::cout << "El programa se ejecutó con éxito\n";
+  // std::cout << "El programa se ejecutó con éxito\n";
   return 1;
 }

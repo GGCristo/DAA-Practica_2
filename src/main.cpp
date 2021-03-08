@@ -30,6 +30,6 @@ int main(int argc, char** argv)
   {
     std::cerr << "Ha habido un error no especificado\n";
   }
-  std::cout << "Se cierra el programa\n";
+  // std::cout << "Se cierra el programa\n";
   return 0;
 }

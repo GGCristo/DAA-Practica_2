@@ -13,7 +13,7 @@ void CintaSalida::write(int valor)
 
 void CintaSalida::volcar(char* fichero)
 {
-  std::cout << "Escribiendo en la cinta de Salida...\n";
+  // std::cout << "Escribiendo en la cinta de Salida...\n";
 
   std::fstream f_cinta_output;
   f_cinta_output.open(fichero, std::ios::out);

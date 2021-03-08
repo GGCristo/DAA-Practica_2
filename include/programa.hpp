@@ -20,12 +20,14 @@ class Programa
     void insertar_instruccion(std::string&, std::string&, Memoria&, CintaEntrada&, CintaSalida&);
     int ejecutar(Memoria&);
     void peek();
+    int numeroEjecuciones();
     const Instruccion_Interfaz& operator [](int);
     const Instruccion_Interfaz& operator [](int) const;
   private:
     SetEtiquetas set_etiquetas_;
     Pc pc_;
     std::vector<std::shared_ptr<Instruccion_Interfaz>> programa_;
+    int ejecuciones_;
 };
 
 bool isInmediato(const std::string& opcode, std::string& operando);
