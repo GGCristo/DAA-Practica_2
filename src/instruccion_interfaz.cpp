@@ -7,6 +7,7 @@ opcode_(opcode), operando_(operando)
 
 // int Instruccion_Interfaz::isInmediato(int& operandoI)
 // {
+//   if (operando_ == "") throw Halt("La operacion " + opcode_ + " necesita un operando\n");
 //   bool posible_inmediato = false;
 //   try
 //   {
@@ -40,6 +41,7 @@ std::ostream& Instruccion_Interfaz::mostrar (std::ostream& os)
 
 int Instruccion_Interfaz::isIndirecto(int& operandoI)
 {
+  if (operando_ == "") throw Halt("La operacion " + opcode_ + " necesita un operando\n");
   bool posible_indirecto = false;
   try
   {
@@ -67,6 +69,7 @@ int Instruccion_Interfaz::isIndirecto(int& operandoI)
 
 int Instruccion_Interfaz::isInmediatoOIndirecto(int& operandoI)
 {
+  if (operando_ == "") throw Halt("La operacion " + opcode_ + " necesita un operando\n");
   bool posible_indirecto = false;
   bool posible_inmediato = false;
   try

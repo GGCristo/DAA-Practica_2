@@ -8,21 +8,33 @@ IMult::IMult(std::string& opcode, std::string& operando, Memoria& memoria): Inst
 
 int IMult::ejecutar()
 {
+  int operandoDerecho;
   if (tipoAcceso_ == Inmediato)
   {
-    (*memoria_).escribir(0, (*memoria_).get_acumulador() * operandoI_);
+    operandoDerecho = operandoI_;
   }
   else if (tipoAcceso_ == Directo)
   {
-    (*memoria_).escribir(0, (*memoria_).get_acumulador() * ((*memoria_))[operandoI_]);
+    operandoDerecho = (*memoria_)[operandoI_];
   }
   else if (tipoAcceso_ == Indirecto)
   {
-    (*memoria_).escribir(0, (*memoria_).get_acumulador() * ((*memoria_))[((*memoria_))[operandoI_]]);
+    operandoDerecho = (*memoria_)[(*memoria_)[operandoI_]];
   }
   else
   {
     throw Halt("Ha ocurrido un error interno:\nEl parser no funciona bien\n");
   }
+  overflow(memoria_ -> get_acumulador(), operandoDerecho);
+  memoria_ -> escribir(0, memoria_ -> get_acumulador() * operandoDerecho);
   return 0;
+}
+
+void IMult::overflow(int a, int b)
+{
+  if ((a > INT_MAX / b) ||
+      (a < INT_MIN / b))
+  {
+    std::cerr << "Warning: Ha habido un overflow\n";
+  }
 }

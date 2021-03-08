@@ -25,7 +25,7 @@ Programa::Programa(const char* fichero, Memoria& memoria, CintaEntrada& cintaEnt
         if (palabra1[palabra1.size() - 1] == ':')
         {
           palabra1.erase(palabra1.end() - 1);
-          linea_stream >> palabra2;
+          if (!(linea_stream >> palabra2)) continue; // Si solo esta la etiqueta sigue
           linea_stream >> palabra3;
           if (palabra2[palabra2.size() - 1] == ':' || palabra3[palabra3.size() - 1] == ':')
           {

@@ -11,10 +11,18 @@ int IRead::ejecutar()
 {
   if (tipoAcceso_ == Indirecto)
   {
+    if ((*memoria_)[operandoI_] == 0)
+    {
+      throw Halt("No se puede acceder al acumulador directamente con \"READ\"\n");
+    }
     (*memoria_).escribir(((*memoria_))[operandoI_], cinta_entrada_ -> read());
   }
   else if (tipoAcceso_ == Directo)
   {
+    if (operandoI_ == 0)
+    {
+      throw Halt("No se puede acceder al acumulador directamente con \"READ\"\n");
+    }
     (*memoria_).escribir(operandoI_, cinta_entrada_-> read());
   }
   else

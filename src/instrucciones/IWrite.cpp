@@ -23,6 +23,10 @@ int IWrite::ejecutar()
   }
   else if (tipoAcceso_ == Indirecto)
   {
+    if ((*memoria_)[operandoI_] == 0)
+    {
+      throw Halt("No se puede acceder al acumulador directamente con \"WRITE\"\n");
+    }
     cinta_salida_->write(((*memoria_))[((*memoria_))[operandoI_]]);
   }
   else

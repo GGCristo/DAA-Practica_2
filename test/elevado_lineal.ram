@@ -1,9 +1,13 @@
-read 0
-store 1
+read 1
+load 1
+jgtz continue
+write =0
+jump end
+continue: store 1
 store 3
 sub =1
 store 2
-LOOP: JZERO end
+LOOP: JZERO write-end
 load 3
 mult 1
 store 3
@@ -11,5 +15,6 @@ load 2
 sub =1
 store 2
 jump LOOP
-end: write 3
+write-end: write 3
+end:
 halt
