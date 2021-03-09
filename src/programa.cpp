@@ -1,9 +1,6 @@
 #include "../include/programa.hpp"
 #include "../include/instrucciones/cabeceras.hpp"
 
-Programa::Programa()
-{}
-
 Programa::Programa(const char* fichero, Memoria& memoria, CintaEntrada& cintaEntrada, CintaSalida& cintaSalida)
 {
   ejecuciones_ = 0;

@@ -9,7 +9,7 @@
 class Ram
 {
   public:
-    Ram(){};
+    Ram() = delete;
     explicit Ram(char**);
     void ejecutar();
   private:

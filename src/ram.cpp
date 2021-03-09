@@ -68,6 +68,7 @@ bool Ram::menu(bool& ejecutar)
     switch(opcion)
     {
       case 't':
+      case 's':
         programa_.peek();
         break;
       case 'e':
@@ -87,9 +88,6 @@ bool Ram::menu(bool& ejecutar)
         break;
       case 'h':
         ayuda();
-        break;
-      case 's':
-        programa_.peek();
         break;
       default:
         std::cout << "Esa opción no esta contemplada\n";

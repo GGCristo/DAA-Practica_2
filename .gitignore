@@ -8,3 +8,5 @@ Debug/
 /test/doctest.h
 /bin/main
 /.vscode/
+/project.log
+/report.tasks
