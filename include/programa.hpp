@@ -29,6 +29,3 @@ class Programa
     std::vector<std::shared_ptr<Instruccion_Interfaz>> programa_;
     int ejecuciones_;
 };
-
-bool isInmediato(const std::string& opcode, std::string& operando);
-bool isIndirecto(const std::string& opcode, std::string& operando);

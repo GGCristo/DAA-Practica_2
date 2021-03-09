@@ -28,7 +28,6 @@ void CintaSalida::volcar(char* fichero)
   }
 
   f_cinta_output.close();
-
 }
 
 size_t CintaSalida::get_sz()
