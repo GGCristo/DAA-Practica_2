@@ -4,6 +4,7 @@ project(RAM)
 
 option(ENABLE_TESTS "Enable tests" ON/OFF)
 if (${ENABLE_TESTS})
+  enable_testing()
   add_subdirectory(test)
 else()
   add_subdirectory(src)

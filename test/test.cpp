@@ -1,4 +1,5 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include <chrono>
 #include "doctest.h"
 #include "../include/ram.hpp"
 
@@ -19,8 +20,15 @@ TEST_CASE("TEST 1")
   std::vector<std::string> input_v = {"2", "4", "6", "8", "0"};
   std::vector<std::string> expected_v = {"2", "4", "6", "8"};
   escribir_fichero_in(argumentos[2], input_v);
+
+  auto t1 = std::chrono::high_resolution_clock::now();
   Ram ram(argumentos);
   ram.ejecutar();
+  auto t2 = std::chrono::high_resolution_clock::now();
+  std::cout << "TEST1 time: "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count() << " microsegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000.0 << " milisegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000000.0 << " segundos\n";
   comprobar(argumentos[3], expected_v);
 }
 
@@ -35,16 +43,28 @@ TEST_CASE("TEST 2")
   std::vector<std::string> input_v = {"1", "2", "2", "1", "0"};
   std::vector<std::string> expected_v = {"1"};
   escribir_fichero_in(argumentos[2], input_v);
+  auto t1 = std::chrono::high_resolution_clock::now();
   Ram ram1(argumentos);
   ram1.ejecutar();
+  auto t2 = std::chrono::high_resolution_clock::now();
+  std::cout << "TEST2-1 time: "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count() << " microsegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000.0 << " milisegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000000.0 << " segundos\n";
   comprobar(argumentos[3], expected_v);
 
   // Numeros distintos TODO Fallo no me deja write =0
   input_v = {"1", "1", "2", "1", "0"};
   expected_v = {"0"};
   escribir_fichero_in(argumentos[2], input_v);
+  auto t3 = std::chrono::high_resolution_clock::now();
   Ram ram2(argumentos);
   ram2.ejecutar();
+  auto t4 = std::chrono::high_resolution_clock::now();
+  std::cout << "TEST2-2 time: "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t4 - t3).count() << " microsegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t4 - t3).count()/1000.0 << " milisegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t4 - t3).count()/1000000.0 << " segundos\n";
   comprobar(argumentos[3], expected_v);
 }
 
@@ -71,8 +91,14 @@ TEST_CASE("TEST 4")
   std::vector<std::string> input_v = {"1", "2", "2", "1", "0"};
   std::vector<std::string> expected_v = {"2", "4", "4", "2"};
   escribir_fichero_in(argumentos[2], input_v);
+  auto t1 = std::chrono::high_resolution_clock::now();
   Ram ram1(argumentos);
   ram1.ejecutar();
+  auto t2 = std::chrono::high_resolution_clock::now();
+  std::cout << "TEST4 time: "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count() << " microsegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000.0 << " milisegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000000.0 << " segundos\n";
   comprobar(argumentos[3], expected_v);
 }
 
@@ -87,8 +113,14 @@ TEST_CASE("TEST 5")
   std::vector<std::string> input_v = {"1", "2", "2", "1", "0"};
   std::vector<std::string> expected_v = {"6"};
   escribir_fichero_in(argumentos[2], input_v);
+  auto t1 = std::chrono::high_resolution_clock::now();
   Ram ram1(argumentos);
   ram1.ejecutar();
+  auto t2 = std::chrono::high_resolution_clock::now();
+  std::cout << "TEST5 time: "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count() << " microsegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000.0 << " milisegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000000.0 << " segundos\n";
   comprobar(argumentos[3], expected_v);
 }
 
@@ -102,8 +134,56 @@ TEST_CASE("TEST 7")
   std::vector<std::string> input_v = {"2", "4", "6", "8", "0"};
   std::vector<std::string> expected_v = {"6", "12", "18", "24"};
   escribir_fichero_in(argumentos[2], input_v);
+  auto t1 = std::chrono::high_resolution_clock::now();
   Ram ram(argumentos);
   ram.ejecutar();
+  auto t2 = std::chrono::high_resolution_clock::now();
+  std::cout << "TEST7 time: "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count() << " microsegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000.0 << " milisegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000000.0 << " segundos\n";
+  comprobar(argumentos[3], expected_v);
+}
+
+TEST_CASE("Elevedo_lineal")
+{
+  char* argumentos[5];
+  std::string test = "test/elevado_lineal.ram";
+  argumentos[0] = &program[0]; argumentos[1] = &test[0]; argumentos[2] = &input[0];
+  argumentos[3] = &output[0]; argumentos[4] = &debug[0];
+
+  std::vector<std::string> input_v = {"4"};
+  std::vector<std::string> expected_v = {"256"};
+  escribir_fichero_in(argumentos[2], input_v);
+  auto t1 = std::chrono::high_resolution_clock::now();
+  Ram ram(argumentos);
+  ram.ejecutar();
+  auto t2 = std::chrono::high_resolution_clock::now();
+  std::cout << "TEST elevado_lineal time: "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count() << " microsegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000.0 << " milisegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000000.0 << " segundos\n";
+  comprobar(argumentos[3], expected_v);
+}
+
+TEST_CASE("Elevedo_algoritmico")
+{
+  char* argumentos[5];
+  std::string test = "test/elevado.ram";
+  argumentos[0] = &program[0]; argumentos[1] = &test[0]; argumentos[2] = &input[0];
+  argumentos[3] = &output[0]; argumentos[4] = &debug[0];
+
+  std::vector<std::string> input_v = {"4"};
+  std::vector<std::string> expected_v = {"256"};
+  escribir_fichero_in(argumentos[2], input_v);
+  auto t1 = std::chrono::high_resolution_clock::now();
+  Ram ram(argumentos);
+  ram.ejecutar();
+  auto t2 = std::chrono::high_resolution_clock::now();
+  std::cout << "TEST elevado_logaritmico time: "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count() << " microsegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000.0 << " milisegundos | "
+    << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count()/1000000.0 << " segundos\n";
   comprobar(argumentos[3], expected_v);
 }
 

@@ -26,6 +26,6 @@ class Programa
   private:
     SetEtiquetas set_etiquetas_;
     Pc pc_;
-    std::vector<std::shared_ptr<Instruccion_Interfaz>> programa_;
+    std::vector<std::unique_ptr<Instruccion_Interfaz>> programa_;
     int ejecuciones_;
 };

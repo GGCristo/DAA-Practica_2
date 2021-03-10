@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION "3.9.2")
 
 project(RAM)
 
-enable_testing()
-
 set(SOURCES
   ../src/programa.cpp
   ../src/set_etiquetas.cpp

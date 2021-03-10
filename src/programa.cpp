@@ -59,51 +59,51 @@ void Programa::insertar_instruccion(std::string& opcode, std::string& operando,
 {
   if (opcode == "load" || opcode == "LOAD")
   {
-    programa_.push_back(std::make_shared<ILoad>(opcode, operando, memoria));
+    programa_.push_back(std::make_unique<ILoad>(opcode, operando, memoria));
   }
   else if (opcode == "store" || opcode == "STORE")
   {
-    programa_.push_back(std::make_shared<IStore>(opcode, operando, memoria));
+    programa_.push_back(std::make_unique<IStore>(opcode, operando, memoria));
   }
   else if (opcode == "add" || opcode == "ADD")
   {
-    programa_.push_back(std::make_shared<IAdd>(opcode, operando, memoria));
+    programa_.push_back(std::make_unique<IAdd>(opcode, operando, memoria));
   }
   else if (opcode == "sub" || opcode == "SUB")
   {
-    programa_.push_back(std::make_shared<ISub>(opcode, operando, memoria));
+    programa_.push_back(std::make_unique<ISub>(opcode, operando, memoria));
   }
   else if (opcode == "mult" || opcode == "MULT")
   {
-    programa_.push_back(std::make_shared<IMult>(opcode, operando, memoria));
+    programa_.push_back(std::make_unique<IMult>(opcode, operando, memoria));
   }
   else if(opcode == "div" || opcode == "DIV")
   {
-    programa_.push_back(std::make_shared<IDiv>(opcode, operando, memoria));
+    programa_.push_back(std::make_unique<IDiv>(opcode, operando, memoria));
   }
   else if (opcode == "read" || opcode == "READ")
   {
-    programa_.push_back(std::make_shared<IRead>(opcode, operando, memoria, cintaEntrada));
+    programa_.push_back(std::make_unique<IRead>(opcode, operando, memoria, cintaEntrada));
   }
   else if (opcode == "write" || opcode == "WRITE")
   {
-    programa_.push_back(std::make_shared<IWrite>(opcode, operando, memoria, cintaSalida));
+    programa_.push_back(std::make_unique<IWrite>(opcode, operando, memoria, cintaSalida));
   }
   else if (opcode == "jump" || opcode == "JUMP")
   {
-    programa_.push_back(std::make_shared<IJump>(opcode, operando, pc_ , set_etiquetas_));
+    programa_.push_back(std::make_unique<IJump>(opcode, operando, pc_ , set_etiquetas_));
   }
   else if (opcode == "jgtz" || opcode == "JGTZ")
   {
-    programa_.push_back(std::make_shared<IJgtz>(opcode, operando, memoria, pc_, set_etiquetas_));
+    programa_.push_back(std::make_unique<IJgtz>(opcode, operando, memoria, pc_, set_etiquetas_));
   }
   else if (opcode == "jzero" || opcode == "JZERO")
   {
-    programa_.push_back(std::make_shared<IJzero>(opcode, operando, memoria, pc_ , set_etiquetas_));
+    programa_.push_back(std::make_unique<IJzero>(opcode, operando, memoria, pc_ , set_etiquetas_));
   }
   else if (opcode == "halt" || opcode == "HALT")
   {
-    programa_.push_back(std::make_shared<IHalt>(opcode));
+    programa_.push_back(std::make_unique<IHalt>(opcode));
   }
   else
   {
