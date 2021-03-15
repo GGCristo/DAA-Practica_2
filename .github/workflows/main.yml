@@ -16,12 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: github/codeql-action/init@v1
-        - with:
-          - languages: cpp
-
-      # Here is where you build your code
-      # - run: |
-      # make bootstrap
-      # make release
-      - name: Perform CodeQL Analysis
-      - uses: github/codeql-action/analyze@v1
+      - with:
+          languages:
+            cpp
+            # Here is where you build your code
+            # - run: |
+            # make bootstrap
+            # make release
+        name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
