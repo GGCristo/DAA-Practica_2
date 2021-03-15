@@ -20,8 +20,7 @@ jobs:
         with:
           languages: cpp
         # Here is where you build your code
-      - run: |
-          pwd
-          cd build
+      # - run: |
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
