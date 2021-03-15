@@ -11,12 +11,14 @@ jobs:
       - run: cd build && make
       - run: ./bin/my_test
   codeQL:
-      - uses: github/codeql-action/init@v1
-        with:
-          languages: cpp
+    runs-on: ubuntu-latest
+    steps:
+      uses: github/codeql-action/init@v1
+      with:
+        languages: cpp
 
-          # Here is where you build your code
-      # - run: |
+        # Here is where you build your code
+        # - run: |
         # make bootstrap
         # make release
 
