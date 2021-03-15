@@ -3,6 +3,7 @@ on: push
 
 jobs:
   linux:
+    name: Linux
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -11,16 +12,16 @@ jobs:
       - run: cd build && make
       - run: ./bin/my_test
   codeQL:
+    name: codeQL
     runs-on: ubuntu-latest
     steps:
-      uses: github/codeql-action/init@v1
-      with:
-        languages: cpp
+      - uses: github/codeql-action/init@v1
+        - with:
+          - languages: cpp
 
-        # Here is where you build your code
-        # - run: |
-        # make bootstrap
-        # make release
-
+      # Here is where you build your code
+      # - run: |
+      # make bootstrap
+      # make release
       - name: Perform CodeQL Analysis
       - uses: github/codeql-action/analyze@v1
