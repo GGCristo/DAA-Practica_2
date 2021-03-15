@@ -15,10 +15,14 @@ jobs:
     name: codeQL
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Perform CodeQL Init
         uses: github/codeql-action/init@v1
         with:
           languages: cpp
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v1
         # Here is where you build your code
       # - run: |
 
