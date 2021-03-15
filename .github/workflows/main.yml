@@ -17,12 +17,10 @@ jobs:
     steps:
       - uses: github/codeql-action/init@v1
       - with:
-          languages:
-            cpp
-            # Here is where you build your code
-            # - run: |
-            # make bootstrap
-            # make release
-        run: cd build
-        name: Perform CodeQL Analysis
+          languages: cpp
+        # Here is where you build your code
+      - run: |
+          pwd
+          cd build
+      - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
